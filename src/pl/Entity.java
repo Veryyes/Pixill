@@ -50,4 +50,13 @@ public abstract class Entity {
 			return y;
 		}
 	}
+	public void setCenter(int x1, int y1){
+		try{
+			x=x1-(img.getWidth()/2);
+			y=y1-(img.getHeight()/2);
+		}
+		catch(Exception e){
+			System.out.println(e+"\n[WARNING] Probably missing an image");
+		}
+	}
 }

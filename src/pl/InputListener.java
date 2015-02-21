@@ -12,13 +12,12 @@ public class InputListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Global.pressedKeys|=(1<<e.getKeyCode()-64);
-
+		//System.out.println(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		Global.pressedKeys&=~(1<<e.getKeyChar()-64);
-
 	}
 
 	@Override
