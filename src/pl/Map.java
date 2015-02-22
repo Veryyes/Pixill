@@ -15,11 +15,11 @@ public class Map {
 		float x=0;
 		float y=0;
 		switch(level){
-		case 0:
+		case 0://This should be the menu screen;
 			try{
 				background = ImageIO.read(new File("res/maps/Test Map.png"));
 			}catch(Exception e){
-				System.out.println("Could not find file Test Map.png");
+				System.out.println("[SEVERE] Could not find file Test Map.png");
 			}
 			break;
 		case 1:

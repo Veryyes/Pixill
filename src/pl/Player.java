@@ -9,6 +9,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Player extends Actor implements MouseListener{
 	public static boolean canMoveUp;
@@ -16,28 +20,47 @@ public class Player extends Actor implements MouseListener{
 	public static boolean canMoveLeft;
 	public static boolean canMoveRight;
 	public static float speed;
+	public BufferedImage[] legsImage;
+	public float animationCount;
+	public float animationSpeed;
 	public Player() {
 		super(0,0);
 		setImage("res/arrow.png");
+		legsImage = new BufferedImage[6];
+		for(int i=0;i<legsImage.length;i++){
+			try {
+				legsImage[i] = ImageIO.read(new File("res/Front With Walking/"+i+".png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("[WARNING] Missing Image - res/Front With Walking/"+i+".png");
+			}
+		}
 		setCenter(Global.frameWidth/2,Global.frameHeight/2);
+		animationCount=0;
+		animationSpeed=.35f;
 		canMoveUp=true;
 		canMoveDown=true;
 		canMoveLeft=true;
 		canMoveRight=true;
 		speed=4;
-		
 	}
 	@Override
 	public void update() {
 		
 	}
 	@Override
-	public void paint(Graphics d) {
-		Graphics2D g = (Graphics2D)d;
+	public void paint(Graphics g) {
+		//TODO if use 2d array to fit animations for each direction?
+		g.drawImage(legsImage[(int)animationCount], (int)x, (int)y,null);
+		if(InputListener.isPressed('W')){
+			animationCount+=animationSpeed;
+			animationCount=animationCount%5;
+		}
+		else
+			animationCount=0;
 		Point mouse = Global.frame.getMousePosition();
 		if(mouse!=null){
 			float theta = (float) Math.atan((float)(mouse.y-getCenterY())/(float)(mouse.x-getCenterX()));
-			System.out.println(theta);
 			if(mouse.x<getCenterX())
 				theta+=Math.PI;
 			AffineTransform tx = AffineTransform.getRotateInstance(theta,img.getWidth()/2,img.getHeight()/2);

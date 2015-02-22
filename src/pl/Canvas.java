@@ -22,6 +22,7 @@ public class Canvas extends JPanel {
 	public static Player player;
 	public static int theta=2;
 	public static BufferedImage cursorImage;
+	public static long startTime;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		Global.frame = new JFrame("Pixill");
 		Global.frame.setSize(Global.frameWidth,Global.frameHeight);
@@ -29,15 +30,16 @@ public class Canvas extends JPanel {
 		Global.frame.setVisible(true);
 		Global.canvas = new Canvas();
 		Global.frame.add(Global.canvas);
-		long startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		init();
 		while(Global.gameOn){
 			update();
 			startTime+=Global.FRAMESKIP;
 			long sleepTime =startTime-System.currentTimeMillis();
-			if(sleepTime>=0){
+			if(sleepTime>=0)
 				Thread.sleep(sleepTime);
-			}
+			else
+				System.out.println("[BAD] We Are Lagging");
 		}
 	}
 	public static void init() throws IOException{
@@ -51,13 +53,25 @@ public class Canvas extends JPanel {
 	}
 	public static void update(){
 		camera.update();
+		
 	}
 	public void paintComponent(Graphics g){
+		startTime+=Global.FRAMESKIP;
+		long sleepTime =startTime-System.currentTimeMillis();
+		if(sleepTime>=0){
+			try {
+				Thread.sleep(sleepTime);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+			System.out.println("[BAD] Graphic Rendering is Lagging");
 		super.paintComponent(g);
 		repaint();
 		map.paint(g, camera.xShift, camera.yShift);
 		player.paint(g);
-		
 	}
 	
 }
