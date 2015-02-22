@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class Global {
 	//Global Variables to make managing stuff easier
-	public static final int FPS = 30;
+	public static final int FPS = 60;
 	public static final double FRAMESKIP = 1000d/FPS;
 	public static JFrame frame;
 	public static Canvas canvas;
