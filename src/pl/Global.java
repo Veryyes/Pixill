@@ -15,4 +15,6 @@ public class Global {
 	public static int frameHeight = 640;
 	public static int level = 0;	//0 = title screen;
 	public static int pressedKeys=0;
+	public static ArrayList<Projectile> projectiles;
+	public static ArrayList<Wall> walls;
 }

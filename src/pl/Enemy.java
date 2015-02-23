@@ -6,5 +6,9 @@ public abstract class Enemy extends Actor {
 		super(x, y);
 		active = false;
 	}
-
+	public void directMove(Entity other){
+		double magnitude = distance(other);
+		x+=(((other.x-x)/magnitude)*speed);
+		y+=(((other.y-y)/magnitude)*speed);
+	}
 }

@@ -1,11 +1,16 @@
 package pl;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Camera {
 	int xShift;
 	int yShift;
+	Color currentEffect;
 	public Camera() {
 		xShift=0;
 		yShift=0;
+		currentEffect=new Color(0,0,0,0);
 	}
 	public void update(){
 		if(InputListener.isPressed('W')){
@@ -24,5 +29,12 @@ public class Camera {
 			if(Player.canMoveRight)
 				xShift+=-Player.speed;
 		}
+	}
+	public void setCurrentEffect(Color c){
+		currentEffect = c;
+	}
+	public void paintEffect(Graphics g){
+		g.setColor(currentEffect);
+		g.fillRect(0, 0, Global.frameWidth, Global.frameHeight);
 	}
 }

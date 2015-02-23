@@ -11,6 +11,7 @@ public class Map {
 	BufferedImage background;
 	float x;
 	float y;
+	public static Map level1;
 	public Map(int level) {
 		float x=0;
 		float y=0;
@@ -32,5 +33,7 @@ public class Map {
 	public void paint(Graphics g, int xShift, int yShift){
 		g.drawImage(background, (int)x+xShift, (int)y+yShift, null);
 	}
-
+	public void mapLoader(){
+		
+	}
 }

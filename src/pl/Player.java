@@ -54,7 +54,7 @@ public class Player extends Actor implements MouseListener{
 		g.drawImage(legsImage[(int)animationCount], (int)x, (int)y,null);
 		if(InputListener.isPressed('W')){
 			animationCount+=animationSpeed;
-			animationCount=animationCount%5;
+			animationCount=animationCount%legsImage.length;
 		}
 		else
 			animationCount=0;
@@ -74,7 +74,8 @@ public class Player extends Actor implements MouseListener{
 		
 	}
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		Point mouse = Global.frame.getMousePosition();
+		
 		
 	}
 
