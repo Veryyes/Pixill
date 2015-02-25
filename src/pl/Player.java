@@ -1,12 +1,11 @@
 package pl;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,18 +22,27 @@ public class Player extends Actor implements MouseListener{
 	public BufferedImage[] legsImage;
 	public float animationCount;
 	public float animationSpeed;
+	private AffineTransform legRotation;
+	private AffineTransformOp legRotationOp;
+	private double legTheta;
+	float theta;
 	public Player() {
 		super(0,0);
-		setImage("res/arrow.png");
-		legsImage = new BufferedImage[6];
+		setImage("res/player/PlayerTD.png");
+		legsImage = new BufferedImage[12];
 		for(int i=0;i<legsImage.length;i++){
 			try {
-				legsImage[i] = ImageIO.read(new File("res/Front With Walking/"+i+".png"));
+				legsImage[i] = ImageIO.read(new File("res/player/walking/playerwalk"+i+".png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("[WARNING] Missing Image - res/Front With Walking/"+i+".png");
 			}
 		}
+		legRotation = AffineTransform.getRotateInstance(0,legsImage[(int)animationCount].getWidth()/2,legsImage[(int)animationCount].getHeight()/2);
+		legRotationOp = new AffineTransformOp(legRotation,AffineTransformOp.TYPE_BILINEAR);
+		//legTheta=new byte[2];
+		legTheta=0;
+		theta = 0;
 		setCenter(Global.frameWidth/2,Global.frameHeight/2);
 		animationCount=0;
 		animationSpeed=.35f;
@@ -51,31 +59,56 @@ public class Player extends Actor implements MouseListener{
 	@Override
 	public void paint(Graphics g) {
 		//TODO if use 2d array to fit animations for each direction?
-		g.drawImage(legsImage[(int)animationCount], (int)x, (int)y,null);
-		if(InputListener.isPressed('W')){
-			animationCount+=animationSpeed;
-			animationCount=animationCount%legsImage.length;
+		if(InputListener.isPressed('W')&&canMoveUp){
+			legTheta=0;
+			if(InputListener.isPressed('A')&&canMoveLeft)
+				legTheta=7*Math.PI/4;
+			else if(InputListener.isPressed('D')&&canMoveRight)
+				legTheta=Math.PI/4;
+			animate();
 		}
-		else
+		else if(InputListener.isPressed('S')&&canMoveDown){
+			legTheta=Math.PI;
+			if(InputListener.isPressed('A')&&canMoveLeft)
+				legTheta=5*Math.PI/4;
+			else if(InputListener.isPressed('D')&&canMoveRight)
+				legTheta=3*Math.PI/4;
+			animate();
+		}
+		else if(InputListener.isPressed('A')&&canMoveLeft){
+			legTheta=3*Math.PI/2;
+			animate();
+		}
+		else if(InputListener.isPressed('D')&&canMoveRight){
+			legTheta=Math.PI/2;
+			animate();
+		}
+		else{
 			animationCount=0;
+		}
+		legRotation = AffineTransform.getRotateInstance(legTheta,legsImage[(int)animationCount].getWidth()/2,legsImage[(int)animationCount].getHeight()/2);
+		legRotationOp = new AffineTransformOp(legRotation,AffineTransformOp.TYPE_BILINEAR);
+		g.drawImage(legRotationOp.filter(legsImage[(int)animationCount],null), (int)x, (int)y,null);
 		Point mouse = Global.frame.getMousePosition();
 		if(mouse!=null){
-			float theta = (float) Math.atan((float)(mouse.y-getCenterY())/(float)(mouse.x-getCenterX()));
+			theta = (float) Math.atan((float)(mouse.y-getCenterY())/(float)(mouse.x-getCenterX()));
 			if(mouse.x<getCenterX())
 				theta+=Math.PI;
 			AffineTransform tx = AffineTransform.getRotateInstance(theta,img.getWidth()/2,img.getHeight()/2);
 			AffineTransformOp op = new AffineTransformOp(tx,AffineTransformOp.TYPE_BILINEAR);
 			BufferedImage imgRotated = op.filter(img, null);
 			g.drawImage(imgRotated,(int)x,(int)y,null);
-			//http://stackoverflow.com/questions/622140/calculate-bounding-box-coordinates-from-a-rotated-rectangle-picture-inside
+			
 		}
 		else
 			g.drawImage(img,(int)x,(int)y,null);
 		
 	}
+	private void animate(){
+		animationCount+=animationSpeed;
+		animationCount=animationCount%legsImage.length;
+	}
 	public void mouseClicked(MouseEvent e) {
-		Point mouse = Global.frame.getMousePosition();
-		
 		
 	}
 
@@ -93,7 +126,12 @@ public class Player extends Actor implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		Point mouse = Global.frame.getMousePosition();
+		Projectile bullet = new Projectile(this,mouse.x,mouse.y,5,"res/player/laser/laserB.png");
+		//float theta =(float) Math.atan((float)(mouse.y-getCenterY())/(float)(mouse.x-getCenterX()));
+		bullet.applyRotation(theta);
+		Global.projectiles.add(bullet);
+		
 		
 	}
 
@@ -103,6 +141,7 @@ public class Player extends Actor implements MouseListener{
 		
 	}
 	private float[] getRotatedBoundings(float theta){//I dont even...
+		//http://stackoverflow.com/questions/622140/calculate-bounding-box-coordinates-from-a-rotated-rectangle-picture-inside
 		float[] box = new float[4];
 		float[] xCorners = new float[4];
 		xCorners[0]=(float) (getCenterX()+(x-getCenterX())*Math.cos(theta)+(y-getCenterY())*Math.sin(theta));

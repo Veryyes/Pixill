@@ -10,7 +10,6 @@ public abstract class Actor extends Entity {
 	public Actor(float x, float y) {
 		super(x, y);
 	}
-	
 	public boolean isDead(){
 		return(hp<0);
 	}

@@ -20,7 +20,7 @@ public abstract class Entity {
 		try {
 			img = ImageIO.read(new File(s));
 		} catch (IOException e) {
-			System.out.println("[WARNING] Could not find file "+s);
+			System.out.println("[WARNING] Could not find file \""+s+"\"");
 		}
 	}
 	public float distance(float x1, float y1, float x2, float y2){	//distance formula
