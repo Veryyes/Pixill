@@ -17,4 +17,5 @@ public class Global {
 	public static int pressedKeys=0;
 	public static ArrayList<Projectile> projectiles;
 	public static ArrayList<Wall> walls;
+	public static ArrayList<Enemy> enemies;
 }

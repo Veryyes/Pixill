@@ -56,7 +56,6 @@ public class Canvas extends JPanel {
 		cursorImage = ImageIO.read(new File("res/crosshair.png"));
 	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		BufferedImage tile = ImageIO.read(new File("res/Test Tile.png"));
-	//	System.out.println((map.background.getSubimage(0, 0, 128, 128)).equals(map.background.getSubimage(0, 0, 128,128)));
 	}
 	public static void update(){
 		camera.update();
@@ -81,7 +80,6 @@ public class Canvas extends JPanel {
 		//Actually Drawing Stuff
 		super.paintComponent(g);
 		repaint();
-		//g.drawImage((map.background.getSubimage(0, 0, 128,128)),0,0,null);
 		map.paint(g, camera.xShift, camera.yShift);
 		player.paint(g);
 		for(int i=0;i<Global.projectiles.size();i++){

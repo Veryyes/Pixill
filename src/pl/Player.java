@@ -40,7 +40,6 @@ public class Player extends Actor implements MouseListener{
 		}
 		legRotation = AffineTransform.getRotateInstance(0,legsImage[(int)animationCount].getWidth()/2,legsImage[(int)animationCount].getHeight()/2);
 		legRotationOp = new AffineTransformOp(legRotation,AffineTransformOp.TYPE_BILINEAR);
-		//legTheta=new byte[2];
 		legTheta=0;
 		theta = 0;
 		setCenter(Global.frameWidth/2,Global.frameHeight/2);
@@ -58,7 +57,6 @@ public class Player extends Actor implements MouseListener{
 	}
 	@Override
 	public void paint(Graphics g) {
-		//TODO if use 2d array to fit animations for each direction?
 		if(InputListener.isPressed('W')&&canMoveUp){
 			legTheta=0;
 			if(InputListener.isPressed('A')&&canMoveLeft)
@@ -96,17 +94,23 @@ public class Player extends Actor implements MouseListener{
 				theta+=Math.PI;
 			AffineTransform tx = AffineTransform.getRotateInstance(theta,img.getWidth()/2,img.getHeight()/2);
 			AffineTransformOp op = new AffineTransformOp(tx,AffineTransformOp.TYPE_BILINEAR);
-			BufferedImage imgRotated = op.filter(img, null);
-			g.drawImage(imgRotated,(int)x,(int)y,null);
-			
+			g.drawImage(op.filter(img, null),(int)x,(int)y,null);
 		}
 		else
 			g.drawImage(img,(int)x,(int)y,null);
-		
+		//TODO make him not be able to rotate in impossible directions;
+			//Flip body if facing the opposite way, and make him walk backwards?
+			//clamp the rotation?
 	}
 	private void animate(){
 		animationCount+=animationSpeed;
 		animationCount=animationCount%legsImage.length;
+	}
+	private void clampValue(float value, float max, float min){
+		if(value>max)
+			value=max;
+		else if(value<min)
+			value=min;
 	}
 	public void mouseClicked(MouseEvent e) {
 		
@@ -127,8 +131,8 @@ public class Player extends Actor implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Point mouse = Global.frame.getMousePosition();
-		Projectile bullet = new Projectile(this,mouse.x,mouse.y,5,"res/player/laser/laserB.png");
-		//float theta =(float) Math.atan((float)(mouse.y-getCenterY())/(float)(mouse.x-getCenterX()));
+		Projectile bullet = new Projectile(this.getCenterX(),this.getCenterY(),mouse.x,mouse.y,15,"res/player/laser/laserR.png");
+		bullet.setCenter(this.getCenterX(), this.getCenterY());
 		bullet.applyRotation(theta);
 		Global.projectiles.add(bullet);
 		

@@ -2,6 +2,14 @@ package pl;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Camera {
 	int xShift;
@@ -36,5 +44,12 @@ public class Camera {
 	public void paintEffect(Graphics g){
 		g.setColor(currentEffect);
 		g.fillRect(0, 0, Global.frameWidth, Global.frameHeight);
+	}
+	public static void playSound(String filepath) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+		Clip clip = AudioSystem.getClip();
+		AudioInputStream ain = AudioSystem.getAudioInputStream(new File(filepath));
+		clip.open(ain);
+		clip.start();
+		
 	}
 }
