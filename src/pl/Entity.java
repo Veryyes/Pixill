@@ -14,14 +14,17 @@ public abstract class Entity {
 		this.x=x;
 		this.y=y;
 	}
-	abstract public void update();
-	abstract public void paint(Graphics g);
+	abstract public void update();			//Non-graphical stuff goes here
+	abstract public void paint(Graphics g);	//Anything to do with graphics, images, animation or any kind goes here
 	public void setImage(String s) {	//sets the image of the entity
 		try {
 			img = ImageIO.read(new File(s));
 		} catch (IOException e) {
 			System.out.println("[WARNING] Could not find file \""+s+"\"");
 		}
+	}
+	public void setImage(BufferedImage img){
+		this.img = img;
 	}
 	public float distance(float x1, float y1, float x2, float y2){	//distance formula
 		return (float)Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
@@ -44,6 +47,24 @@ public abstract class Entity {
 	public float getCenterY(){
 		try{
 			return (y+(img.getHeight()/2));
+		}
+		catch(Exception e){
+			System.out.println(e);
+			return y;
+		}
+	}
+	public float getCenterX(BufferedImage image){
+		try{
+			return (x+(image.getWidth()/2));
+		}
+		catch(Exception e){
+			System.out.println(e);
+			return x;
+		}
+	}
+	public float getCenterY(BufferedImage image){
+		try{
+			return (y+(image.getHeight()/2));
 		}
 		catch(Exception e){
 			System.out.println(e);

@@ -7,14 +7,13 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class Map {
-	SparseMatrix map;
 	BufferedImage background;
-	float x;
-	float y;
+	public static float x;
+	public static float y;
 	public static Map level1;
 	public Map(int level) {
-		float x=0;
-		float y=0;
+		x=0;
+		y=0;
 		switch(level){
 		case 0://This should be the menu screen;
 			try{
@@ -31,8 +30,8 @@ public class Map {
 	public void update(){
 		
 	}
-	public void paint(Graphics g, int xShift, int yShift){
-		g.drawImage(background, (int)x+xShift, (int)y+yShift, null);
+	public void paint(Graphics g){
+		g.drawImage(background, (int)x, (int)y, null);
 	}
 	public void mapLoader(){
 		

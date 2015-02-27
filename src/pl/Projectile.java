@@ -8,7 +8,8 @@ public class Projectile extends Entity{
 	double xVel;
 	double yVel;
 	int damage;
-	Entity owner; //When null, damages both player&enemies (world dmg)
+	Entity owner; //TODO When null, damages both player&enemies (world dmg)
+	char color;
 	public Projectile(int x, int y) {
 		super(x, y);
 	}
@@ -20,6 +21,7 @@ public class Projectile extends Entity{
 		yVel = (((y2-y)/magnitude)*speed);
 		setImage(filepath);
 		owner=null;
+		color='R';
 	}
 	public Projectile(Entity owner, float x2, float y2, float speed, String filepath){
 		//Creates a projectile at a start point and a target point with given speed;
@@ -29,6 +31,7 @@ public class Projectile extends Entity{
 		yVel = (((y2-owner.y)/magnitude)*speed);
 		setImage(filepath);
 		this.owner=owner;
+		color='R';
 	}
 	public Projectile(float x, float y, float x2, float y2, float speed, Entity owner,String filepath){
 		//Creates a projectile at a start point and a target point with given speed;
@@ -38,6 +41,7 @@ public class Projectile extends Entity{
 		yVel = (((y2-y)/magnitude)*speed);
 		setImage(filepath);
 		this.owner=owner;
+		color='R';
 	}
 	public Projectile(Entity owner, Entity target, float speed,String filepath){
 		//Creates a projectile at a start point and a target point with given speed;
@@ -47,6 +51,7 @@ public class Projectile extends Entity{
 		yVel = (((target.y-owner.y)/magnitude)*speed);
 		setImage(filepath);
 		this.owner=owner;
+		color='R';
 	}
 	public void applyRotation(double theta){
 		AffineTransformOp op = new AffineTransformOp(AffineTransform.getRotateInstance(theta,img.getWidth()/2,img.getHeight()/2),AffineTransformOp.TYPE_BILINEAR);

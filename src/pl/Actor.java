@@ -1,11 +1,15 @@
 package pl;
 
-import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
 
 public abstract class Actor extends Entity {
 	int hp;
 	float speed;
+	float theta;
+	protected AffineTransform bodyRotation;
+	protected AffineTransformOp bodyRotationOp;
 	Rectangle2D.Double hitBox;
 	public Actor(float x, float y) {
 		super(x, y);

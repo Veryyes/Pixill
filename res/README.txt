@@ -6,4 +6,4 @@ needs...
    -to be centered in a square where the circle circumscribed in the square
 can contain the picture rotated in at any degree
 	-> PRETTY MUCH, make the picture like normal, then resize canvas so that
-	new width = new height = Math.ceil((sqrt(width/2 + width/2)) * 2)
+	new width = new height = Math.ceil((sqrt((width/2)^2 + (width/2)^2) * 2)
