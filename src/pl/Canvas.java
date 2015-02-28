@@ -85,6 +85,9 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 		repaint();
 		map.paint(g);
+		for(int i = 0; i < Global.spawners.size();i++) {
+			Global.spawners.get(i).paint(g);
+		}
 		Global.player.paint(g);
 		for(int i=0;i<Global.projectiles.size();i++){
 			Global.projectiles.get(i).paint(g);
@@ -92,9 +95,7 @@ public class Canvas extends JPanel {
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).paint(g);
 		}
-		for(int i = 0; i < Global.spawners.size();i++) {
-			Global.spawners.get(i).paint(g);
-		}
+		
 		Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
 	}
 }
