@@ -17,7 +17,8 @@ public class Global {
 	public static int pressedKeys=0;
 	public static Camera camera;
 	public static Player player;
-	public static ArrayList<Projectile> projectiles;
-	public static ArrayList<Wall> walls;
-	public static ArrayList<Enemy> enemies;
+	public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	public static ArrayList<Wall> walls = new ArrayList<Wall>();
+	public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	public static ArrayList<Spawner> spawners = new ArrayList<Spawner>();
 }

@@ -37,15 +37,20 @@ public class Canvas extends JPanel {
 		Global.camera = new Camera();
 		input = new InputListener();
 		Global.frame.addKeyListener(input);
+		/*
 		Global.projectiles = new ArrayList<Projectile>();
 		Global.enemies = new ArrayList<Enemy>();
 		Global.walls = new ArrayList<Wall>();
+		Global.spawners = new ArrayList<Spawner>();
+		*/
 		map = new Map(Global.level);
 		Global.player = new Player();
 		Global.frame.addMouseListener(Global.player);
 	//	cursorImage = ImageIO.read(new File("res/crosshair.png"));
 	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
-		Global.enemies.add(new Crawler(700,500,'B'));
+		//Global.enemies.add(new Crawler(700,500,'B'));
+		Global.spawners.add(new Spawner(700,500,'B'));
+		
 	}
 	public static void update(){
 		Global.camera.update();
@@ -59,9 +64,13 @@ public class Canvas extends JPanel {
 				Global.projectiles.get(i).update();
 			}
 		}
+		for(int i=0;i < Global.spawners.size();i++) {
+			Global.spawners.get(i).update();
+		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).update();
 		}
+		
 	}
 	public void paintComponent(Graphics g){
 		//Making the graphics have a set fps value; Not sure if this matches up w/ update() though
@@ -82,6 +91,9 @@ public class Canvas extends JPanel {
 		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).paint(g);
+		}
+		for(int i = 0; i < Global.spawners.size();i++) {
+			Global.spawners.get(i).paint(g);
 		}
 		Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
 	}

@@ -33,6 +33,10 @@ public class Camera {
 				Global.walls.get(i).y+=Player.speed*Math.sin(Math.PI/4);
 				Global.walls.get(i).x+=Player.speed*Math.sin(Math.PI/4);
 			}
+			for(int i=0;i<Global.spawners.size();i++){
+				Global.spawners.get(i).y+=Player.speed*Math.sin(Math.PI/4);
+				Global.spawners.get(i).x+=Player.speed*Math.sin(Math.PI/4);
+			}
 		}
 		else if(InputListener.isPressed('W')&&Player.canMoveUp&&InputListener.isPressed('D')&&Player.canMoveRight){
 			Map.y+=Player.speed*Math.sin(Math.PI/4);
@@ -48,6 +52,10 @@ public class Camera {
 			for(int i=0;i<Global.walls.size();i++){
 				Global.walls.get(i).y+=Player.speed*Math.sin(Math.PI/4);
 				Global.walls.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
+			}
+			for(int i=0;i<Global.spawners.size();i++){
+				Global.spawners.get(i).y+=Player.speed*Math.sin(Math.PI/4);
+				Global.spawners.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
 			}
 		}
 		else if(InputListener.isPressed('S')&&Player.canMoveDown&&InputListener.isPressed('A')&&Player.canMoveLeft){
@@ -65,6 +73,10 @@ public class Camera {
 				Global.walls.get(i).y+=-Player.speed*Math.sin(Math.PI/4);
 				Global.walls.get(i).x+=Player.speed*Math.sin(Math.PI/4);
 			}
+			for(int i=0;i<Global.spawners.size();i++){
+				Global.spawners.get(i).y+=-Player.speed*Math.sin(Math.PI/4);
+				Global.spawners.get(i).x+=Player.speed*Math.sin(Math.PI/4);
+			}
 		}
 		else if(InputListener.isPressed('S')&&Player.canMoveDown&&InputListener.isPressed('D')&&Player.canMoveRight){
 			Map.y+=-Player.speed*Math.sin(Math.PI/4);
@@ -81,6 +93,10 @@ public class Camera {
 				Global.walls.get(i).y+=Player.speed*Math.sin(Math.PI/4);
 				Global.walls.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
 			}
+			for(int i=0;i<Global.spawners.size();i++){
+				Global.spawners.get(i).y+=Player.speed*Math.sin(Math.PI/4);
+				Global.spawners.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
+			}
 		}
 		//Cardinals
 		else if(InputListener.isPressed('W')&&Player.canMoveUp){
@@ -91,6 +107,8 @@ public class Camera {
 				Global.enemies.get(i).y+=Player.speed;
 			for(int i=0;i<Global.walls.size();i++)
 				Global.walls.get(i).y+=Player.speed;
+			for(int i=0;i<Global.spawners.size();i++)
+				Global.spawners.get(i).y+=Player.speed;
 		}
 		else if(InputListener.isPressed('S')&&Player.canMoveDown){
 			Map.y+=-Player.speed;
@@ -100,6 +118,8 @@ public class Camera {
 				Global.enemies.get(i).y+=-Player.speed;
 			for(int i=0;i<Global.walls.size();i++)
 				Global.walls.get(i).y+=-Player.speed;
+			for(int i=0;i<Global.spawners.size();i++)
+				Global.spawners.get(i).y+=-Player.speed;
 		}
 		else if(InputListener.isPressed('A')&&Player.canMoveLeft){
 			Map.x+=Player.speed;
@@ -109,6 +129,8 @@ public class Camera {
 				Global.enemies.get(i).x+=Player.speed;
 			for(int i=0;i<Global.walls.size();i++)
 				Global.walls.get(i).x+=Player.speed;
+			for(int i=0;i<Global.spawners.size();i++)
+				Global.spawners.get(i).x+=Player.speed;
 		}
 		else if(InputListener.isPressed('D')&&Player.canMoveRight){
 			Map.x+=-Player.speed;
@@ -118,6 +140,8 @@ public class Camera {
 				Global.enemies.get(i).x+=-Player.speed;
 			for(int i=0;i<Global.walls.size();i++)
 				Global.walls.get(i).x+=-Player.speed;
+			for(int i=0;i<Global.spawners.size();i++)
+				Global.spawners.get(i).x+=-Player.speed;
 		}
 		
 		/*
