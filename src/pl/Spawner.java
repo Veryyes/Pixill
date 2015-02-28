@@ -13,7 +13,7 @@ public class Spawner extends Enemy {
 	@Override
 	public void update() {
 		timer +=1;
-		if((distance(Global.player) < 300 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
+		if((distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
 			Global.enemies.add(new Crawler(x,y,color));
 			timer = 0;
 		}
