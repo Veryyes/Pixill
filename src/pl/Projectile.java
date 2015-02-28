@@ -9,7 +9,8 @@ public class Projectile extends Entity{
 	double yVel;
 	int damage;
 	Entity owner; //TODO When null, damages both player&enemies (world dmg)
-	char color;
+	public char color;
+	public boolean remove = false;
 	public Projectile(int x, int y) {
 		super(x, y);
 	}
@@ -60,6 +61,7 @@ public class Projectile extends Entity{
 	public void update() {
 		x+=xVel;
 		y+=yVel;
+		
 	}
 	public void paint(Graphics g) {
 		g.drawImage(img,(int)x,(int)y, null);

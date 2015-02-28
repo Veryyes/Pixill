@@ -52,8 +52,9 @@ public class Canvas extends JPanel {
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
 		Global.player.update();
 		for(int i=0;i<Global.projectiles.size();i++){
-			if(Global.projectiles.get(i).outOfBounds())
+			if(Global.projectiles.get(i).outOfBounds() || Global.projectiles.get(i).remove) {
 				Global.projectiles.remove(i);
+			}
 			else{
 				Global.projectiles.get(i).update();
 			}

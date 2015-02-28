@@ -21,5 +21,13 @@ public class Spawner extends Enemy {
 		g.drawImage(img,(int)x,(int)y,null);
 
 	}
+	int proj;
+	public void changeColor() {
+		proj = isHit();
+		if(proj != -1) {
+			color = Global.projectiles.get(proj).color;
+			Global.projectiles.get(proj).remove = true;
+		}
+	}
 
 }

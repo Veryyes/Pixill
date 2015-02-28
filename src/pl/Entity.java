@@ -89,8 +89,8 @@ public abstract class Entity {
 	 * false
 	 * 		share a side
 	 */
-	public boolean isColliding (Rectangle2D.Double other) {
-		return hitBox.intersects(other);
+	public boolean isColliding (Entity other) {
+		return hitBox.intersects(other.hitBox);
 	} 
 	 /* For 1 rec one line
 	 * 	true
