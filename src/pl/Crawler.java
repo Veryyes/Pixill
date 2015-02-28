@@ -36,9 +36,48 @@ public class Crawler extends Enemy {
 	public void update() {
 		
 	}
-
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
 		Global.camera.setCurrentEffect(new Color(0,0,0,0));
+		if(distance(Global.player)<=100){
+			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
+			Global.player.hp--;
+			animationCount=0;
+			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
+			if(Global.player.x<x)
+				theta+=Math.PI;
+		}
+		else if(distance(Global.player)<=200){
+			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
+			directMove(Global.player); //run to player
+			animate();
+			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
+			if(Global.player.x<x)
+				theta+=Math.PI;
+		}
+		else if(distance(Global.player)<=300){
+			active=true;
+			setImage("res/enemies/"+color+"Mob/"+color+"MobTD.png");
+			directMove(Global.player); //run to player
+			animate();
+			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
+			if(Global.player.x<x)
+				theta+=Math.PI;
+		}
+		else{
+			active=false;
+			animationCount=0;
+			setImage("res/enemies/"+color+"Mob/"+color+"MobTD.png");
+		}
+		//Legs
+		bodyRotation = AffineTransform.getRotateInstance(theta,legsImage[(int)animationCount].getWidth()/2,legsImage[(int)animationCount].getHeight()/2);
+		bodyRotationOp = new AffineTransformOp(bodyRotation,AffineTransformOp.TYPE_BILINEAR);
+		g.drawImage(bodyRotationOp.filter(legsImage[(int)animationCount], null),(int)x,(int)y,null);
+		//Torso
+		bodyRotation = AffineTransform.getRotateInstance(theta,img.getWidth()/2,img.getHeight()/2);
+		bodyRotationOp = new AffineTransformOp(bodyRotation,AffineTransformOp.TYPE_BILINEAR);
+		g.drawImage(bodyRotationOp.filter(img, null),(int)x-img.getWidth()/2+legsImage[(int)animationCount].getWidth()/2,(int)y-img.getHeight()/2+legsImage[(int)animationCount].getHeight()/2,null);
+
+		/*
 		if(distance(Global.player)<=100){//Attacking Player
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
 			Global.player.hp--;
@@ -101,6 +140,7 @@ public class Crawler extends Enemy {
 			bodyRotationOp = new AffineTransformOp(bodyRotation,AffineTransformOp.TYPE_BILINEAR);
 			g.drawImage(bodyRotationOp.filter(img, null),(int)x,(int)y,null);
 		}
+		*/
 	
 	}
 	private void animate(){

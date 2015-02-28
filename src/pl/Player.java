@@ -174,7 +174,7 @@ public class Player extends Actor implements MouseListener{
 		if(!isAttacking){
 			isAttacking=true;
 			Point mouse = Global.frame.getMousePosition();
-			Projectile bullet = new Projectile(this.getCenterX(),this.getCenterY(),mouse.x,mouse.y,15,"res/player/laser/laser"+color+".png");
+			Projectile bullet = new Projectile((this.getCenterX()),(this.getCenterY()),mouse.x,mouse.y,15,"res/player/laser/laser"+color+".png");
 			bullet.setCenter(this.getCenterX(), this.getCenterY());
 			bullet.applyRotation(theta);
 			bullet.color=this.color;

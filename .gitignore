@@ -44,3 +44,4 @@ Temporary Items
 
 # Java Classes
 *.class
+/bin
