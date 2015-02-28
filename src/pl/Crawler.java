@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Crawler extends Enemy {
-		char color;
 		BufferedImage[] legsImage;
 		float animationCount;
 		float animationSpeed;

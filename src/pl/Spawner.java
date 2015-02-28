@@ -6,18 +6,19 @@ public class Spawner extends Enemy {
 
 	public Spawner(float x, float y, char c) {
 		super(x, y);
-		
+		this.color = c;
+		setImage("res/enemies/"+c+"Spawn/Spawn.png");
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
+		
+		g.drawImage(img,(int)x,(int)y,null);
 
 	}
 
