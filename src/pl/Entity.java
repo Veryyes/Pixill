@@ -1,6 +1,7 @@
 package pl;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import javax.imageio.ImageIO;
 public abstract class Entity {
 	float x,y;
 	BufferedImage img;
+	Rectangle2D.Double hitBox;
 	public Entity(float x, float y){
 		this.x=x;
 		this.y=y;
@@ -80,4 +82,25 @@ public abstract class Entity {
 			System.out.println(e+"\n[WARNING] Probably missing an image");
 		}
 	}
+	public boolean isColliding (Rectangle2D.Double other) {
+		return hitBox.intersects(other);
+	}
+	/*For 2 rects
+	 * 	true
+	 * 		intersecting
+	 * 		inside each other
+	 * false
+	 * 		share a side
+	 * 	
+	 * For 1 rec one line
+	 * 	true
+	 * 		intersecting
+	 * 		line sits on a side of rectangle
+	 * 		inside of rectangle
+	 * 
+	 * For 2 lines
+	 * 	true
+	 * 		intersecting
+	 * 		on top of each other
+	 */
 }
