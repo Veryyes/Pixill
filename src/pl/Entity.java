@@ -82,23 +82,23 @@ public abstract class Entity {
 			System.out.println(e+"\n[WARNING] Probably missing an image");
 		}
 	}
-	public boolean isColliding (Rectangle2D.Double other) {
-		return hitBox.intersects(other);
-	}
 	/*For 2 rects
 	 * 	true
 	 * 		intersecting
 	 * 		inside each other
 	 * false
 	 * 		share a side
-	 * 	
-	 * For 1 rec one line
+	 */
+	public boolean isColliding (Rectangle2D.Double other) {
+		return hitBox.intersects(other);
+	} 
+	 /* For 1 rec one line
 	 * 	true
 	 * 		intersecting
 	 * 		line sits on a side of rectangle
 	 * 		inside of rectangle
-	 * 
-	 * For 2 lines
+	 *
+	* For 2 lines
 	 * 	true
 	 * 		intersecting
 	 * 		on top of each other
