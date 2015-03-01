@@ -90,11 +90,11 @@ public class Camera {
 				Global.enemies.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
 			}
 			for(int i=0;i<Global.walls.size();i++){
-				Global.walls.get(i).y+=Player.speed*Math.sin(Math.PI/4);
+				Global.walls.get(i).y+=-Player.speed*Math.sin(Math.PI/4);
 				Global.walls.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
 			}
 			for(int i=0;i<Global.spawners.size();i++){
-				Global.spawners.get(i).y+=Player.speed*Math.sin(Math.PI/4);
+				Global.spawners.get(i).y+=-Player.speed*Math.sin(Math.PI/4);
 				Global.spawners.get(i).x+=-Player.speed*Math.sin(Math.PI/4);
 			}
 		}
@@ -120,6 +120,7 @@ public class Camera {
 				Global.walls.get(i).y+=-Player.speed;
 			for(int i=0;i<Global.spawners.size();i++)
 				Global.spawners.get(i).y+=-Player.speed;
+			System.out.println("Down");
 		}
 		else if(InputListener.isPressed('A')&&Player.canMoveLeft){
 			Map.x+=Player.speed;
@@ -142,6 +143,7 @@ public class Camera {
 				Global.walls.get(i).x+=-Player.speed;
 			for(int i=0;i<Global.spawners.size();i++)
 				Global.spawners.get(i).x+=-Player.speed;
+			System.out.println("Left");
 		}
 		
 		/*
