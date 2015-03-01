@@ -80,7 +80,7 @@ public class Canvas extends JPanel {
 			try {Thread.sleep(sleepTime);}
 			 catch (InterruptedException e) {e.printStackTrace();}
 		else
-			System.err.println("[BAD] Graphic Rendering is Lagging");
+			System.out.println("[BAD] Graphic Rendering is Lagging");
 		//Actually Drawing Stuff
 		super.paintComponent(g);
 		repaint();
@@ -101,8 +101,11 @@ public class Canvas extends JPanel {
 		for(int i = 0; i < Global.spawners.size();i++) {
 			Global.spawners.get(i).paint(g);
 		}
-		Global.player.paint(g);
-		
+		try {
+			Global.player.paint(g);
+		} catch (Exception e) {
+			System.err.println("Player Paint: "+e);
+		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).paint(g);
 		}
