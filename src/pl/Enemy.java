@@ -14,8 +14,10 @@ public abstract class Enemy extends Actor {
 	}
 	public int isHit() {
 		for(int i = 0; i < Global.projectiles.size(); i++) {
-			if(isColliding(Global.projectiles.get(i))) {
-				return i;
+			if(!(Global.projectiles.get(i).outOfBounds())) {
+				if(isColliding(Global.projectiles.get(i))) {
+					return i;
+				}
 			}
 		}
 		return -1;
