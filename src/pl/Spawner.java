@@ -1,6 +1,7 @@
 package pl;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class Spawner extends Enemy {
 	public Spawner(float x, float y, char c) throws IOException {
 		super(x, y);
 		this.color = c;
+		this.hitBox = new Rectangle2D.Double(128,128,128,128);
 		setImage("res/enemies/"+c+"Spawn/"+color+"Spawner0.png");
 
 		animation[0][0] = ImageIO.read(new File("res/enemies/RSpawn/Rspawner0.png"));
@@ -38,7 +40,6 @@ public class Spawner extends Enemy {
 		}
 
 	}
-	
 	float animate = 0;
 	int cc;
 

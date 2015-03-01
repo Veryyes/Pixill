@@ -90,12 +90,7 @@ public abstract class Entity {
 	 * 		share a side
 	 */
 	public boolean isColliding (Entity other) {
-		try {
-			return hitBox.intersects(other.hitBox);
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return hitBox.intersects(other.hitBox);
 	} 
 	 /* For 1 rec one line
 	 * 	true
