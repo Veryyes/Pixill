@@ -80,13 +80,23 @@ public class Canvas extends JPanel {
 			try {Thread.sleep(sleepTime);}
 			 catch (InterruptedException e) {e.printStackTrace();}
 		else
-			System.out.println("[BAD] Graphic Rendering is Lagging");
+			System.err.println("[BAD] Graphic Rendering is Lagging");
 		//Actually Drawing Stuff
 		super.paintComponent(g);
 		repaint();
-		map.paint(g);
-		for(int i=0;i<Global.projectiles.size();i++){
-			Global.projectiles.get(i).paint(g);
+		try {
+			map.paint(g);
+		}
+		catch (Exception e) {
+			System.err.println("Map paint: "+e);
+		}
+		try {
+			for(int i=0;i<Global.projectiles.size();i++){
+				Global.projectiles.get(i).paint(g);
+			}
+		}
+		catch(Exception e) {
+			System.err.println("Projectile paint: "+e);
 		}
 		for(int i = 0; i < Global.spawners.size();i++) {
 			Global.spawners.get(i).paint(g);
