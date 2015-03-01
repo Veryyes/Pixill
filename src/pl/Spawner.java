@@ -45,7 +45,7 @@ public class Spawner extends Enemy {
 
 	@Override
 	public void paint (Graphics g) {
-		changeColor();
+		//changeColor();
 		animate++;
 		if(animate > 2) animate = 0;
 		switch(color) {
