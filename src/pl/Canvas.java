@@ -43,14 +43,14 @@ public class Canvas extends JPanel {
 		Global.walls = new ArrayList<Wall>();
 		Global.spawners = new ArrayList<Spawner>();
 		*/
-		map = new Map(Global.level);
+		
 		Global.player = new Player();
 		Global.frame.addMouseListener(Global.player);
 	//	cursorImage = ImageIO.read(new File("res/crosshair.png"));
 	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		//Global.enemies.add(new Crawler(700,500,'B'));
 		Global.spawners.add(new Spawner(700,500,'B'));
-		
+		map = new Map(Global.level);
 	}
 	public static void update(){
 		Global.camera.update();

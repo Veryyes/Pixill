@@ -42,6 +42,7 @@ public class Map {
 				data = mapLoader("res/maps/Level_1.txt");
 				y=-40*128;
 				x=-21*128;
+				shiftEntities();
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_1.txt");
 			}
@@ -95,8 +96,28 @@ public class Map {
 		for(int i = 0;i<map.length;i++){
 			for(int j=0;j<map[0].length;j++){
 				map[i][j]=""+data5[j+i*129];
+				if(map[i][j].equals("0"))
+					Global.walls.add(new Wall(i,j,128,128));
 			}
 		}
 		return map;
+	}
+	private void shiftEntities(){
+		for(int i=0;i<Global.projectiles.size();i++){
+			Global.projectiles.get(i).y+=y;
+			Global.projectiles.get(i).x+=x;
+		}
+		for(int i=0;i<Global.enemies.size();i++){
+			Global.enemies.get(i).y+=y;
+			Global.enemies.get(i).x+=x;
+		}
+		for(int i=0;i<Global.walls.size();i++){
+			Global.walls.get(i).y+=y;
+			Global.walls.get(i).x+=x;
+		}
+		for(int i=0;i<Global.spawners.size();i++){
+			Global.spawners.get(i).y+=y;
+			Global.spawners.get(i).x+=x;
+		}
 	}
 }

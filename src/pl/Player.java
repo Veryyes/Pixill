@@ -78,7 +78,7 @@ public class Player extends Actor implements MouseListener{
 		else if(InputListener.isPressed('3')){
 			color='B';
 		}
-		if(InputListener.isPressed('E'))
+		if(InputListener.isPressed(' '))
 			speed=8;
 		else speed=4;
 	}
