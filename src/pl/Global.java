@@ -21,4 +21,6 @@ public class Global {
 	public static ArrayList<Wall> walls = new ArrayList<Wall>();
 	public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	public static ArrayList<Spawner> spawners = new ArrayList<Spawner>();
+	public static boolean loading = true;
+	public static boolean paused = false; //Probably wont be using this until states
 }

@@ -2,8 +2,11 @@ package pl;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,6 +14,7 @@ public class Canvas extends JPanel {
 	public static InputListener input;
 	public static Map map;
 	public static BufferedImage cursorImage;
+	public static BufferedImage loadScreen;
 	public static long startTime;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		System.out.println("[INFO] Pixill is Launching");
@@ -23,6 +27,7 @@ public class Canvas extends JPanel {
 		startTime = System.currentTimeMillis();
 		init();
 		System.out.println("[INFO] Pixill Finished Loading");
+		Global.loading=false;
 		while(Global.gameOn){
 			update();
 			startTime+=Global.FRAMESKIP;
@@ -37,15 +42,9 @@ public class Canvas extends JPanel {
 		Global.camera = new Camera();
 		input = new InputListener();
 		Global.frame.addKeyListener(input);
-		/*
-		Global.projectiles = new ArrayList<Projectile>();
-		Global.enemies = new ArrayList<Enemy>();
-		Global.walls = new ArrayList<Wall>();
-		Global.spawners = new ArrayList<Spawner>();
-		*/
-		
 		Global.player = new Player();
 		Global.frame.addMouseListener(Global.player);
+		loadScreen = ImageIO.read(new File("res/gui/loading.png"));
 	//	cursorImage = ImageIO.read(new File("res/crosshair.png"));
 	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		//Global.enemies.add(new Crawler(700,500,'B'));
@@ -84,32 +83,22 @@ public class Canvas extends JPanel {
 		//Actually Drawing Stuff
 		super.paintComponent(g);
 		repaint();
-		try {
+		if(Global.loading){
+			g.drawImage(loadScreen,0,-15,null);
+		}
+		else{
 			map.paint(g);
-		}
-		catch (Exception e) {
-			System.err.println("Map paint: "+e);
-		}
-		try {
+			Global.player.paint(g);
 			for(int i=0;i<Global.projectiles.size();i++){
 				Global.projectiles.get(i).paint(g);
 			}
+			for(int i = 0; i < Global.spawners.size();i++) {
+				Global.spawners.get(i).paint(g);
+			}
+			for(int i=0;i<Global.enemies.size();i++){
+				Global.enemies.get(i).paint(g);
+			}
+			Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
 		}
-		catch(Exception e) {
-			System.err.println("Projectile paint: "+e);
-		}
-		for(int i = 0; i < Global.spawners.size();i++) {
-			Global.spawners.get(i).paint(g);
-		}
-		try {
-			Global.player.paint(g);
-		} catch (Exception e) {
-			System.err.println("Player Paint: "+e);
-		}
-		for(int i=0;i<Global.enemies.size();i++){
-			Global.enemies.get(i).paint(g);
-		}
-		
-		Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
 	}
 }
