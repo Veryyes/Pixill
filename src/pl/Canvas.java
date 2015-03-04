@@ -50,6 +50,7 @@ public class Canvas extends JPanel {
 		//Global.enemies.add(new Crawler(700,500,'B'));
 		Global.spawners.add(new Spawner(700,500,'B'));
 		map = new Map(Global.level);
+		Global.frame.addMouseListener(map);
 	}
 	public static void update(){
 		Global.camera.update();
@@ -69,7 +70,6 @@ public class Canvas extends JPanel {
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).update();
 		}
-		
 	}
 	public void paintComponent(Graphics g){
 		//Making the graphics have a set fps value; Not sure if this matches up w/ update() though
