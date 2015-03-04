@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Player extends Actor implements MouseListener{
 	public static boolean canMoveUp;
@@ -179,6 +181,12 @@ public class Player extends Actor implements MouseListener{
 			bullet.applyRotation(theta);
 			bullet.color=this.color;
 			Global.projectiles.add(bullet);
+			try {
+				Camera.playSound("res/sound/Laser/Laserfire.wav");
+			} catch (UnsupportedAudioFileException | IOException
+					| LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 

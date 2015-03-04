@@ -14,6 +14,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Map implements MouseListener  {
 	public static float x;
@@ -63,7 +65,26 @@ public class Map implements MouseListener  {
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_1.txt");
 			}
-			
+			break;
+		case 2:
+			try {
+				data = mapLoader("res/maps/Level_2.txt");
+				//y=-40*128;
+				//x=-21*128;
+				shiftEntities();
+			} catch (Exception e) {
+				System.out.println("[SEVERE] Could not find file res/maps/Level_2.txt");
+			}
+			break;
+		case 3:
+			try {
+				data = mapLoader("res/maps/Level_3.txt");
+				//y=-40*128;
+				//x=-21*128;
+				shiftEntities();
+			} catch (Exception e) {
+				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");
+			}
 			break;
 		}
 		System.out.println("[INFO] Done Loading Map");
@@ -156,6 +177,12 @@ public class Map implements MouseListener  {
 		Point mouse = Global.frame.getMousePosition();
 		if(Global.level==0&&mouse.x>129&&mouse.x<385&&mouse.y>262&&mouse.y<390){
 			Global.loading=true;
+			try {
+				Camera.playSound("res/sound/Menu/Start.wav");
+			} catch (UnsupportedAudioFileException | IOException
+					| LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 			Global.level++;
 			Canvas.map = new Map(Global.level);
 			Global.loading=false;
