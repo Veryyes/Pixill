@@ -7,7 +7,7 @@ public class Wall extends Entity {
 	Rectangle2D.Double hitBox;
 	public Wall(float x, float y) {
 		super(x, y);
-		hitBox=new Rectangle2D.Double(this.x, this.y, 64, 64);
+		hitBox=new Rectangle2D.Double(this.x, this.y, 128, 128);
 	}
 	public Wall(float x, float y, int width, int height){
 		super(x, y);

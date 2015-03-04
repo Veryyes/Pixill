@@ -1,6 +1,7 @@
 package pl;
 
 import java.awt.Graphics;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;

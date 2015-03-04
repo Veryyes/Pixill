@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,6 +60,7 @@ public class Player extends Actor implements MouseListener{
 		legTheta=0;
 		theta = 0;
 		setCenter(Global.frameWidth/2,Global.frameHeight/2);
+		hitBox = new Rectangle2D.Double(x,y,98,128);
 		animationCount=0;
 		animationAttackCount=0;
 		animationSpeed=.35f;
@@ -80,9 +83,12 @@ public class Player extends Actor implements MouseListener{
 		else if(InputListener.isPressed('3')){
 			color='B';
 		}
-		if(InputListener.isPressed(' '))
+		if(InputListener.isPressed(' '))//TODO remember to remove before we export the game
 			speed=8;
 		else speed=4;
+		AffineTransform tx = new AffineTransform();
+		tx.rotate(theta,this.getCenterX(), this.getCenterY());
+		//hitBox = (Double) tx.createTransformedShape(hitBox);
 	}
 	@Override
 	public void paint(Graphics g) {

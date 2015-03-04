@@ -98,10 +98,13 @@ public class Map implements MouseListener  {
 			for(int i=0;i<data.length;i++){
 				for(int j=0;j<data[0].length;j++){
 					if((i*128+y>-128)&&(i*128+y<Global.frameHeight)&&(j*128+x>-128)&&(j*128+x<Global.frameWidth)){
-						if(data[i][j].equals("1"))
+						if(data[i][j].equals("1")){
 							g.drawImage(tile,(int)(j*128+x),(int)(i*128+y),null);
-						else
+							
+						}
+						else{
 							g.fillRect((int)(j*128+x),(int)(i*128+y),128,128);
+						}
 					}
 				}
 			}

@@ -1,6 +1,8 @@
 package pl;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,8 +47,8 @@ public class Canvas extends JPanel {
 		Global.player = new Player();
 		Global.frame.addMouseListener(Global.player);
 		loadScreen = ImageIO.read(new File("res/gui/loading.png"));
-	//	cursorImage = ImageIO.read(new File("res/crosshair.png"));
-	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
+		cursorImage = ImageIO.read(new File("res/Crosshair1.png"));
+		Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		//Global.enemies.add(new Crawler(700,500,'B'));
 		Global.spawners.add(new Spawner(700,500,'B'));
 		map = new Map(Global.level);
@@ -56,6 +58,10 @@ public class Canvas extends JPanel {
 		Global.camera.update();
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
 		Global.player.update();
+		for(int i=0;i<Global.walls.size();i++){
+			if(Global.player.isColliding(Global.walls.get(i)))
+				System.out.println("Touching Wall");
+		}
 		for(int i=0;i<Global.projectiles.size();i++){
 			if(Global.projectiles.get(i).outOfBounds() || Global.projectiles.get(i).remove) {
 				Global.projectiles.remove(i);
