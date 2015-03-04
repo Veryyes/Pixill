@@ -14,6 +14,16 @@ public class Crawler extends Enemy {
 		BufferedImage[] legsImage;
 		float animationCount;
 		float animationSpeed;
+		boolean R,G,B;
+	public Crawler(float x, float y, boolean r, boolean g, boolean b){
+		super(x,y);
+		this.R=r;
+		this.G=g;
+		this.B=b;
+		if(R&&!G&&!B){
+			
+		}
+	}
 	public Crawler(float x, float y, char c) {
 		super(x, y);
 		setImage("res/enemies/"+c+"Mob/"+c+"MobTD.png");
