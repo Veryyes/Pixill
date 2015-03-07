@@ -64,7 +64,7 @@ public class Canvas extends JPanel {
 		for(int i=0;i < Global.walls.size();i++) {
 			Global.walls.get(i).update();
 			//if(Global.player.hitBox.intersects(Global.walls.get(i).hitBox))
-			if(Global.player.topLine.intersects(Global.walls.get(i).hitBox))
+		/*	if(Global.player.topLine.intersects(Global.walls.get(i).hitBox))
 				Player.canMoveUp=false;
 			else Player.canMoveUp=true;
 			if(Global.player.botLine.intersects(Global.walls.get(i).hitBox))
@@ -75,7 +75,7 @@ public class Canvas extends JPanel {
 			else Player.canMoveLeft=true;
 			if(Global.player.rightLine.intersects(Global.walls.get(i).hitBox))
 				Player.canMoveRight=false;
-			else Player.canMoveRight=true;
+			else Player.canMoveRight=true;*/
 		}
 		//if(Global.level>0) System.exit(1);
 		for(int i=0;i<Global.projectiles.size();i++){
@@ -121,7 +121,7 @@ public class Canvas extends JPanel {
 				Global.enemies.get(i).paint(g);
 			}
 			
-			for(int i=0;i<Global.walls.size();i++){
+			/*for(int i=0;i<Global.walls.size();i++){
 				g.setColor(Color.red);
 				g.drawRect((int)Global.walls.get(i).hitBox.x, (int)Global.walls.get(i).hitBox.y,(int) Global.walls.get(i).hitBox.getWidth(),(int) Global.walls.get(i).hitBox.getHeight());
 				g.setColor(Color.BLUE);
@@ -129,14 +129,15 @@ public class Canvas extends JPanel {
 					System.out.println(Global.walls.get(i).hitBox.x+", "+Global.walls.get(i).hitBox.y+", "+Global.walls.get(i).hitBox.width+", "+Global.walls.get(i).hitBox.height+"\n");
 					g.drawRect((int)Global.walls.get(i).hitBox.x,(int)Global.walls.get(i).hitBox.y,(int)Global.walls.get(i).hitBox.width,(int)Global.walls.get(i).hitBox.height);
 				}
-			}
+			}*/
 			Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
-			g.setColor(Color.white);
+			/*g.setColor(Color.white);
 			//g.drawRect((int)Global.player.x,(int)Global.player.y,98,128);
 			g.drawLine((int)Global.player.topLine.x1,(int)Global.player.topLine.y1,(int)Global.player.topLine.x2,(int)Global.player.topLine.y2);
 			g.drawLine((int)Global.player.botLine.x1,(int)Global.player.botLine.y1,(int)Global.player.botLine.x2,(int)Global.player.botLine.y2);
 			g.drawLine((int)Global.player.leftLine.x1,(int)Global.player.leftLine.y1,(int)Global.player.leftLine.x2,(int)Global.player.leftLine.y2);
 			g.drawLine((int)Global.player.rightLine.x1,(int)Global.player.rightLine.y1,(int)Global.player.rightLine.x2,(int)Global.player.rightLine.y2);
+			 */
 		}
 	}
 }
