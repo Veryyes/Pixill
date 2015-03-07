@@ -34,7 +34,8 @@ public class Map implements MouseListener  {
 		} catch (IOException e1) {
 			System.out.println("[SEVERE] Could not find file res/maps/Tile.png");
 		}
-		System.out.println("[INFO] Loading Map");
+		System.out.println("[INFO] Loading Map - Level: "+Global.level);
+		clearEntities();
 		switch(level){
 		case 0://This should be the menu screen;
 			animationCounter=0;
@@ -62,6 +63,8 @@ public class Map implements MouseListener  {
 				y=-40*128;
 				x=-21*128;
 				shiftEntities();
+
+
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_1.txt");
 			}
@@ -87,7 +90,7 @@ public class Map implements MouseListener  {
 			}
 			break;
 		}
-		System.out.println("[INFO] Done Loading Map");
+		System.out.println("[INFO] Done Loading Map - Level:" +Global.level);
 	}
 	public void update(){
 		
@@ -95,15 +98,12 @@ public class Map implements MouseListener  {
 	public void paint(Graphics g){
 		if(Global.level>0){
 			g.setColor(Color.BLACK);
+			g.fillRect(0,0,1024,640);
 			for(int i=0;i<data.length;i++){
 				for(int j=0;j<data[0].length;j++){
 					if((i*128+y>-128)&&(i*128+y<Global.frameHeight)&&(j*128+x>-128)&&(j*128+x<Global.frameWidth)){
 						if(data[i][j].equals("1")){
 							g.drawImage(tile,(int)(j*128+x),(int)(i*128+y),null);
-							
-						}
-						else{
-							g.fillRect((int)(j*128+x),(int)(i*128+y),128,128);
 						}
 					}
 				}
@@ -144,9 +144,10 @@ public class Map implements MouseListener  {
 			for(int j=0;j<map[0].length;j++){
 				map[i][j]=""+data5[j+i*129];
 				if(map[i][j].equals("0"))
-					Global.walls.add(new Wall(i,j,128,128));
+					Global.walls.add(new Wall(j*128,i*128));
 			}
 		}
+		
 		return map;
 	}
 	private void shiftEntities(){
@@ -166,6 +167,12 @@ public class Map implements MouseListener  {
 			Global.spawners.get(i).y+=y;
 			Global.spawners.get(i).x+=x;
 		}
+	}
+	private void clearEntities(){
+		Global.projectiles.clear();
+		Global.enemies.clear();
+		Global.walls.clear();
+		Global.spawners.clear();
 	}
 	public void mouseClicked(MouseEvent e) {
 
