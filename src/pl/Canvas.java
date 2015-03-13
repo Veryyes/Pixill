@@ -1,6 +1,10 @@
 package pl;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +30,11 @@ public class Canvas extends JPanel {
 		Global.frame.add(Global.canvas);
 		startTime = System.currentTimeMillis();
 		init();
-		System.out.println("[INFO] Pixill Finished Loading");
+		System.out.println("[INFO] Pixill Finished Loading\n");
 		Global.loading=false;
 		while(Global.gameOn){
-			update();
+			if(!Global.loading)
+				update();
 			startTime+=Global.FRAMESKIP;
 			long sleepTime =startTime-System.currentTimeMillis();
 			if(sleepTime>=0)
@@ -45,17 +50,21 @@ public class Canvas extends JPanel {
 		Global.player = new Player();
 		Global.frame.addMouseListener(Global.player);
 		loadScreen = ImageIO.read(new File("res/gui/loading.png"));
-	//	cursorImage = ImageIO.read(new File("res/crosshair.png"));
-	//	Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
+		cursorImage = ImageIO.read(new File("res/Crosshair1.png"));
+		Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		//Global.enemies.add(new Crawler(700,500,'B'));
-		Global.spawners.add(new Spawner(700,500,'B'));
+		//Global.spawners.add(new Spawner(700,500,'B'));
 		map = new Map(Global.level);
 		Global.frame.addMouseListener(map);
 	}
 	public static void update(){
 		Global.camera.update();
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
-		Global.player.update();
+		if(Global.level>0)
+			Global.player.update();
+		for(int i=0;i < Global.walls.size();i++) {
+			Global.walls.get(i).update();
+		}
 		for(int i=0;i<Global.projectiles.size();i++){
 			if(Global.projectiles.get(i).outOfBounds() || Global.projectiles.get(i).remove) {
 				Global.projectiles.remove(i);
@@ -69,6 +78,7 @@ public class Canvas extends JPanel {
 		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).update();
+			System.out.println(Global.enemies.get(i).speed);
 		}
 	}
 	public void paintComponent(Graphics g){
@@ -88,7 +98,8 @@ public class Canvas extends JPanel {
 		}
 		else{
 			map.paint(g);
-			Global.player.paint(g);
+			if(Global.level>0)
+				Global.player.paint(g);
 			for(int i=0;i<Global.projectiles.size();i++){
 				Global.projectiles.get(i).paint(g);
 			}

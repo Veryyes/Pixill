@@ -2,9 +2,13 @@ package pl;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,6 +31,7 @@ public class Player extends Actor implements MouseListener{
 	public float animationSpeed;
 	private AffineTransform legRotation;
 	private AffineTransformOp legRotationOp;
+	public static Line2D.Double topLine,botLine,leftLine,rightLine;
 	private double legTheta;
 	public char color;
 	public boolean isAttacking;
@@ -58,6 +63,8 @@ public class Player extends Actor implements MouseListener{
 		legTheta=0;
 		theta = 0;
 		setCenter(Global.frameWidth/2,Global.frameHeight/2);
+		setHitbox();
+		hitBox = new Rectangle2D.Double(x,y,98,128);
 		animationCount=0;
 		animationAttackCount=0;
 		animationSpeed=.35f;
@@ -80,9 +87,16 @@ public class Player extends Actor implements MouseListener{
 		else if(InputListener.isPressed('3')){
 			color='B';
 		}
-		if(InputListener.isPressed(' '))
+		if(InputListener.isPressed(' '))//TODO remember to remove before we export the game
 			speed=8;
 		else speed=4;
+		//AffineTransform tx = new AffineTransform();
+		//tx.rotate(theta,this.getCenterX(), this.getCenterY());
+		//hitBox = tx.createTransformedShape(new Rectangle2D.Double(x,y,98,128));
+		canMoveDown=true;
+		canMoveUp=true;
+		canMoveRight=true;
+		canMoveLeft=true;
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -170,10 +184,9 @@ public class Player extends Actor implements MouseListener{
 	public void mouseEntered(MouseEvent e) {
 	}
 	public void mouseExited(MouseEvent e) {
-
 	}
 	public void mousePressed(MouseEvent e) {
-		if(!isAttacking){
+		if(Global.level>0&&!isAttacking){
 			isAttacking=true;
 			Point mouse = Global.frame.getMousePosition();
 			Projectile bullet = new Projectile((this.getCenterX()),(this.getCenterY()),mouse.x,mouse.y,15,"res/player/laser/laser"+color+".png");
@@ -189,10 +202,13 @@ public class Player extends Actor implements MouseListener{
 			}
 		}
 	}
-
 	public void mouseReleased(MouseEvent e) {
-		
-		
+	}
+	private void setHitbox(){
+		topLine = new Line2D.Double(x+16,y,x+98+16,y);
+		botLine = new Line2D.Double(x+16,y+128,x+98+16,y+128);
+		leftLine = new Line2D.Double(x+16,y,x+16,y+128);
+		rightLine = new Line2D.Double(x+98+16,y,x+98+16,y+128);
 	}
 	private float[] getRotatedBoundings(float theta){//I dont even...
 		//http://stackoverflow.com/questions/622140/calculate-bounding-box-coordinates-from-a-rotated-rectangle-picture-inside
