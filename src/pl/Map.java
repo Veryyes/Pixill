@@ -137,7 +137,7 @@ public class Map implements MouseListener  {
 			if(c!='\n')
 				data4+=c;
 		}
-		//Shoving it in a 2D array
+		//Shoving it in a 2D array && loading in entities
 		char[] data5=data4.toCharArray();
 		String[][] map = new String[128][128];
 		for(int i = 0;i<map.length;i++){
@@ -145,6 +145,10 @@ public class Map implements MouseListener  {
 				map[i][j]=""+data5[j+i*129];
 				if(map[i][j].equals("0"))
 					Global.walls.add(new Wall(j*128,i*128));
+				else if(map[i][j].equals("1")&&Math.random()<.02)
+					Global.enemies.add(new Crawler(j*128,i*128,'R'));
+				else if(map[i][j].equals("1")&&Math.random()<.01)
+					Global.spawners.add(new Spawner(j*128,i*128,'B'));
 			}
 		}
 		

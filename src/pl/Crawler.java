@@ -30,7 +30,7 @@ public class Crawler extends Enemy {
 		animationCount=0;
 		animationSpeed=.35f;
 		color = c;
-		speed = (float) (Player.speed*1.1);
+		speed = (float) (Player.speed*2.5);//TODO figure out why mob still moves slower when is value is greater
 	}
 	@Override
 	public void update() {

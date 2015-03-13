@@ -53,31 +53,18 @@ public class Canvas extends JPanel {
 		cursorImage = ImageIO.read(new File("res/Crosshair1.png"));
 		Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
 		//Global.enemies.add(new Crawler(700,500,'B'));
-		Global.spawners.add(new Spawner(700,500,'B'));
+		//Global.spawners.add(new Spawner(700,500,'B'));
 		map = new Map(Global.level);
 		Global.frame.addMouseListener(map);
 	}
 	public static void update(){
 		Global.camera.update();
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
-		Global.player.update();
+		if(Global.level>0)
+			Global.player.update();
 		for(int i=0;i < Global.walls.size();i++) {
 			Global.walls.get(i).update();
-			//if(Global.player.hitBox.intersects(Global.walls.get(i).hitBox))
-		/*	if(Global.player.topLine.intersects(Global.walls.get(i).hitBox))
-				Player.canMoveUp=false;
-			else Player.canMoveUp=true;
-			if(Global.player.botLine.intersects(Global.walls.get(i).hitBox))
-				Player.canMoveDown=false;
-			else Player.canMoveDown=true;
-			if(Global.player.leftLine.intersects(Global.walls.get(i).hitBox))
-				Player.canMoveLeft=false;
-			else Player.canMoveLeft=true;
-			if(Global.player.rightLine.intersects(Global.walls.get(i).hitBox))
-				Player.canMoveRight=false;
-			else Player.canMoveRight=true;*/
 		}
-		//if(Global.level>0) System.exit(1);
 		for(int i=0;i<Global.projectiles.size();i++){
 			if(Global.projectiles.get(i).outOfBounds() || Global.projectiles.get(i).remove) {
 				Global.projectiles.remove(i);
@@ -91,6 +78,7 @@ public class Canvas extends JPanel {
 		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).update();
+			System.out.println(Global.enemies.get(i).speed);
 		}
 	}
 	public void paintComponent(Graphics g){
@@ -110,7 +98,8 @@ public class Canvas extends JPanel {
 		}
 		else{
 			map.paint(g);
-			Global.player.paint(g);
+			if(Global.level>0)
+				Global.player.paint(g);
 			for(int i=0;i<Global.projectiles.size();i++){
 				Global.projectiles.get(i).paint(g);
 			}
@@ -120,24 +109,7 @@ public class Canvas extends JPanel {
 			for(int i=0;i<Global.enemies.size();i++){
 				Global.enemies.get(i).paint(g);
 			}
-			
-			/*for(int i=0;i<Global.walls.size();i++){
-				g.setColor(Color.red);
-				g.drawRect((int)Global.walls.get(i).hitBox.x, (int)Global.walls.get(i).hitBox.y,(int) Global.walls.get(i).hitBox.getWidth(),(int) Global.walls.get(i).hitBox.getHeight());
-				g.setColor(Color.BLUE);
-				if(Global.player.hitBox.intersects(Global.walls.get(i).hitBox)){
-					System.out.println(Global.walls.get(i).hitBox.x+", "+Global.walls.get(i).hitBox.y+", "+Global.walls.get(i).hitBox.width+", "+Global.walls.get(i).hitBox.height+"\n");
-					g.drawRect((int)Global.walls.get(i).hitBox.x,(int)Global.walls.get(i).hitBox.y,(int)Global.walls.get(i).hitBox.width,(int)Global.walls.get(i).hitBox.height);
-				}
-			}*/
 			Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
-			/*g.setColor(Color.white);
-			//g.drawRect((int)Global.player.x,(int)Global.player.y,98,128);
-			g.drawLine((int)Global.player.topLine.x1,(int)Global.player.topLine.y1,(int)Global.player.topLine.x2,(int)Global.player.topLine.y2);
-			g.drawLine((int)Global.player.botLine.x1,(int)Global.player.botLine.y1,(int)Global.player.botLine.x2,(int)Global.player.botLine.y2);
-			g.drawLine((int)Global.player.leftLine.x1,(int)Global.player.leftLine.y1,(int)Global.player.leftLine.x2,(int)Global.player.leftLine.y2);
-			g.drawLine((int)Global.player.rightLine.x1,(int)Global.player.rightLine.y1,(int)Global.player.rightLine.x2,(int)Global.player.rightLine.y2);
-			 */
 		}
 	}
 }
