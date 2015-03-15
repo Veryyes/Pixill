@@ -32,5 +32,7 @@ public class InputListener implements KeyListener {
 			return ((Global.pressedKeys&(1<<(int)key-21))!=0);
 		return ((Global.pressedKeys&(1<<(int)key))!=0);
 	}
-
+	public static boolean directionKeyPressed(){
+		return isPressed('A')||isPressed('W')||isPressed('S')||isPressed('D');
+	}
 }

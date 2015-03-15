@@ -1,27 +1,69 @@
 package pl;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public abstract class Enemy extends Actor {
-	boolean active;
+	boolean dead;
 	String color;
+	BufferedImage[] animation;
 	int r, g, b;
 	public Enemy(float x, float y) {
 		super(x, y);
-		active = false;
+		dead = false;
 	}
 	public void directMove(Entity other){
 		double magnitude = distance(other);
 		x+=(((other.x-x)/magnitude)*speed);
 		y+=(((other.y-y)/magnitude)*speed);
 	}
-	public int isHit() {
+	public void hurt() {
 		for(int i = 0; i < Global.projectiles.size(); i++) {
 			if(!(Global.projectiles.get(i).outOfBounds())) {
 				if(isColliding(Global.projectiles.get(i))) {
-					return i;
+					Global.projectiles.get(i).remove=true;
+					if(Global.projectiles.get(i).color=='R'){
+						r=0;
+						updateColor();
+						updateImages();
+					}else if(Global.projectiles.get(i).color=='G'){
+						g=0;
+						updateColor();
+						updateImages();
+					}else {// B
+						b=0;
+						updateColor();
+						updateImages();
+					}
+					if(r+g+b==0)
+						dead=true;
 				}
 			}
 		}
-		return -1;
+	}
+	public void updateImages(){
+		if(this instanceof Crawler){
+			for(int i=0;i<animation.length;i++){
+				try {
+					animation[i] = ImageIO.read(new File("res/enemies/"+color+"Mob/"+color+"MobWalking/"+color+"MobWalk"+i+".png"));
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.out.println("[WARNING] Missing Image - res/enemies/"+color+"Mob/"+color+"MobWalking/"+color+"MobWalk"+i+".png");
+				}
+			}
+		}
+		else if(this instanceof Spawner){
+			for(int i=0;i<animation.length;i++){
+				try {
+					animation[i] = ImageIO.read(new File("res/enemies/"+color+"Spawn/"+color+"Spawner"+i+".png"));
+				} catch (IOException e) {
+					System.out.println("[WARNING] Missing Image - res/enemies/"+color+"Spawn/"+color+"Spawner"+i+".png");
+				}
+			}
+		}
 	}
 	public void updateColor(){
 		switch(r){

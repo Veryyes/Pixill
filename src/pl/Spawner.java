@@ -9,16 +9,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Spawner extends Enemy {
-	BufferedImage[] animation = new BufferedImage[3];
 	int timer;
 	float animate = 0;
 	float animationSpeed=1;
-	int cc;
 	public Spawner(float x, float y, int r, int g, int b){
 		super(x,y);
 		this.r=r;
 		this.g=g;
 		this.b=b;
+		animation = new BufferedImage[3];
 		updateColor();
 		for(int i=0;i<animation.length;i++){
 			try {

@@ -77,7 +77,10 @@ public class Canvas extends JPanel {
 			Global.spawners.get(i).update();
 		}
 		for(int i=0;i<Global.enemies.size();i++){
-			Global.enemies.get(i).update();
+			if(Global.enemies.get(i).dead)
+				Global.enemies.remove(i);
+			else
+				Global.enemies.get(i).update();
 		}
 	}
 	public void paintComponent(Graphics g){
@@ -89,6 +92,7 @@ public class Canvas extends JPanel {
 			 catch (InterruptedException e) {e.printStackTrace();}
 		else
 			System.out.println("[BAD] Graphic Rendering is Lagging");
+		
 		//Actually Drawing Stuff
 		super.paintComponent(g);
 		repaint();
@@ -97,14 +101,15 @@ public class Canvas extends JPanel {
 		}
 		else{
 			map.paint(g);
+			for(int i = 0; i < Global.spawners.size();i++) {
+				Global.spawners.get(i).paint(g);
+			}
 			if(Global.level>0)
 				Global.player.paint(g);
 			for(int i=0;i<Global.projectiles.size();i++){
 				Global.projectiles.get(i).paint(g);
 			}
-			for(int i = 0; i < Global.spawners.size();i++) {
-				Global.spawners.get(i).paint(g);
-			}
+			
 			for(int i=0;i<Global.enemies.size();i++){
 				Global.enemies.get(i).paint(g);
 			}
