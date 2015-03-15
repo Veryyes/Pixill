@@ -40,11 +40,18 @@ public class Crawler extends Enemy {
 		animationCount=0;
 		animationSpeed=.35f;
 		color = c;
-		speed = (float) (Player.speed*2.5);//TODO figure out why mob still moves slower when is value is greater
+		speed = (float) (Player.speed*1.1);
 	}
 	@Override
 	public void update() {
 		//TODO Move crawler movement to here from paint method.
+		if(distance(Global.player)<=100){//Attacking Player
+			//Dont move
+			}
+		else if(distance(Global.player)<=200)//Following Player
+			directMove(Global.player); //run to player
+		else if(distance(Global.player)<=300)//Entered Aggro Range
+			directMove(Global.player); //run to player
 	}
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
 		Global.camera.setCurrentEffect(new Color(0,0,0,0));
@@ -67,7 +74,6 @@ public class Crawler extends Enemy {
 		}
 		else if(distance(Global.player)<=200){//Following Player
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
-			directMove(Global.player); //run to player
 			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
 			if(Global.player.x<x)
 				theta+=Math.PI;
@@ -84,7 +90,6 @@ public class Crawler extends Enemy {
 		else if(distance(Global.player)<=300){//Entered Aggro Range
 			active=true;
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTD.png");
-			directMove(Global.player); //run to player
 			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
 			if(Global.player.x<x)
 				theta+=Math.PI;
