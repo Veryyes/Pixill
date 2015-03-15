@@ -20,7 +20,7 @@ public abstract class Enemy extends Actor {
 		x+=(((other.x-x)/magnitude)*speed);
 		y+=(((other.y-y)/magnitude)*speed);
 	}
-	public void hurt() {
+	public void updateProjectileCollisions() {
 		for(int i = 0; i < Global.projectiles.size(); i++) {
 			if(!(Global.projectiles.get(i).outOfBounds())) {
 				if(isColliding(Global.projectiles.get(i))) {
@@ -33,7 +33,7 @@ public abstract class Enemy extends Actor {
 						g=0;
 						updateColor();
 						updateImages();
-					}else {// B
+					}else {// Blue
 						b=0;
 						updateColor();
 						updateImages();

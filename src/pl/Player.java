@@ -207,6 +207,7 @@ public class Player extends Actor implements MouseListener{
 		leftLine = new Line2D.Double(x+16,y,x+16,y+128);
 		rightLine = new Line2D.Double(x+98+16,y,x+98+16,y+128);
 	}
+	@SuppressWarnings("unused")
 	private float[] getRotatedBoundings(float theta){//I dont even...
 		//http://stackoverflow.com/questions/622140/calculate-bounding-box-coordinates-from-a-rotated-rectangle-picture-inside
 		float[] box = new float[4];

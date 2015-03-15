@@ -58,6 +58,7 @@ public class Canvas extends JPanel {
 		Global.frame.addMouseListener(map);
 	}
 	public static void update(){
+		
 		Global.camera.update();
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
 		if(Global.level>0)
@@ -82,6 +83,7 @@ public class Canvas extends JPanel {
 			else
 				Global.enemies.get(i).update();
 		}
+		
 	}
 	public void paintComponent(Graphics g){
 		//Making the graphics have a set fps value; Not sure if this matches up w/ update() though

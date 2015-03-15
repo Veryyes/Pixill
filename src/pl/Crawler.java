@@ -3,15 +3,20 @@ package pl;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class Crawler extends Enemy {
 		float animationCount;
 		float animationSpeed;
+		//Line2D.Double topLine,botLine,leftLine,rightLine;
 	public Crawler(float x, float y, int r, int g, int b ){
 		super(x,y);
 		this.r=r;
@@ -28,6 +33,7 @@ public class Crawler extends Enemy {
 				System.out.println("[WARNING] Missing Image - res/enemies/"+color+"Mob/"+color+"MobWalking/"+color+"MobWalk"+i+".png");
 			}
 		}
+		hitBox = new Rectangle2D.Double(x,y,98,128);
 		theta=(float) (Math.random()*2*Math.PI);
 		animationCount=0;
 		animationSpeed=.35f;
@@ -57,11 +63,13 @@ public class Crawler extends Enemy {
 		//TODO Move crawler movement to here from paint method.
 		if(distance(Global.player)<=100){//Attacking Player
 			//Dont move
-			}
+		}
 		else if(distance(Global.player)<=200)//Following Player
 			directMove(Global.player); //run to player
 		else if(distance(Global.player)<=300)//Entered Aggro Range
 			directMove(Global.player); //run to player
+		hitBox = new Rectangle2D.Double(x,y,98,128);
+		updateProjectileCollisions();
 	}
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
 		Global.camera.setCurrentEffect(new Color(0,0,0,0));
