@@ -87,9 +87,6 @@ public class Player extends Actor implements MouseListener{
 		else if(InputListener.isPressed('3')){
 			color='B';
 		}
-		if(InputListener.isPressed(' '))//TODO remember to remove before we export the game
-			speed=8;
-		else speed=4;
 		//AffineTransform tx = new AffineTransform();
 		//tx.rotate(theta,this.getCenterX(), this.getCenterY());
 		//hitBox = tx.createTransformedShape(new Rectangle2D.Double(x,y,98,128));

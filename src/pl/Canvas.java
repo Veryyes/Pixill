@@ -78,7 +78,6 @@ public class Canvas extends JPanel {
 		}
 		for(int i=0;i<Global.enemies.size();i++){
 			Global.enemies.get(i).update();
-			System.out.println(Global.enemies.get(i).speed);
 		}
 	}
 	public void paintComponent(Graphics g){

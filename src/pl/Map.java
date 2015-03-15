@@ -146,9 +146,9 @@ public class Map implements MouseListener  {
 				if(map[i][j].equals("0"))
 					Global.walls.add(new Wall(j*128,i*128));
 				else if(map[i][j].equals("1")&&Math.random()<.02)
-					Global.enemies.add(new Crawler(j*128,i*128,'R'));
+					Global.enemies.add(new Crawler(j*128,i*128,255,0,0));
 				else if(map[i][j].equals("1")&&Math.random()<.01)
-					Global.spawners.add(new Spawner(j*128,i*128,'B'));
+					Global.spawners.add(new Spawner(j*128,i*128,0,0,255));
 			}
 		}
 		

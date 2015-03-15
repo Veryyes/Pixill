@@ -10,20 +10,31 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Crawler extends Enemy {
-		char color;
 		BufferedImage[] legsImage;
 		float animationCount;
 		float animationSpeed;
-		boolean R,G,B;
-	public Crawler(float x, float y, boolean r, boolean g, boolean b){
+	public Crawler(float x, float y, int r, int g, int b ){
 		super(x,y);
-		this.R=r;
-		this.G=g;
-		this.B=b;
-		if(R&&!G&&!B){
-			
+		this.r=r;
+		this.g=g;
+		this.b=b;
+		updateColor();
+		setImage("res/enemies/"+color+"Mob/"+color+"MobTD.png");
+		legsImage = new BufferedImage[12];
+		for(int i=0;i<legsImage.length;i++){
+			try {
+				legsImage[i] = ImageIO.read(new File("res/enemies/"+color+"Mob/"+color+"MobWalking/"+color+"MobWalk"+i+".png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("[WARNING] Missing Image - res/enemies/"+color+"Mob/"+color+"MobWalking/"+color+"MobWalk"+i+".png");
+			}
 		}
+		theta=(float) (Math.random()*2*Math.PI);
+		animationCount=0;
+		animationSpeed=.35f;
+		speed = (float) (Player.speed*1.1);
 	}
+	/*
 	public Crawler(float x, float y, char c) {
 		super(x, y);
 		setImage("res/enemies/"+c+"Mob/"+c+"MobTD.png");
@@ -41,7 +52,7 @@ public class Crawler extends Enemy {
 		animationSpeed=.35f;
 		color = c;
 		speed = (float) (Player.speed*1.1);
-	}
+	}*/
 	@Override
 	public void update() {
 		//TODO Move crawler movement to here from paint method.
