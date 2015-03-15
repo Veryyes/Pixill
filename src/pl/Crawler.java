@@ -44,7 +44,7 @@ public class Crawler extends Enemy {
 	}
 	@Override
 	public void update() {
-		
+		//TODO Move crawler movement to here from paint method.
 	}
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
 		Global.camera.setCurrentEffect(new Color(0,0,0,0));
