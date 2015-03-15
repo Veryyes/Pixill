@@ -75,7 +75,10 @@ public class Canvas extends JPanel {
 			}
 		}
 		for(int i=0;i < Global.spawners.size();i++) {
-			Global.spawners.get(i).update();
+			if(Global.spawners.get(i).dead)
+				Global.spawners.remove(i);
+			else
+				Global.spawners.get(i).update();
 		}
 		for(int i=0;i<Global.enemies.size();i++){
 			if(Global.enemies.get(i).dead)

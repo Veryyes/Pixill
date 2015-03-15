@@ -2,6 +2,7 @@ package pl;
 
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Spawner extends Enemy {
 				System.out.println("[WARNING] Missing Image - res/enemies/"+color+"Spawn/"+color+"Spawner"+i+".png");
 			}
 		}
+		hitBox = new Rectangle2D.Double(x,y,128,128);
 	}
 	
 	@Override
@@ -35,7 +37,8 @@ public class Spawner extends Enemy {
 			Global.enemies.add(new Crawler(x,y,r,g,b));
 			timer = 0;
 		}
-
+		hitBox = new Rectangle2D.Double(x,y,128,128);
+		updateProjectileCollisions();
 	}
 	
 
