@@ -35,6 +35,7 @@ public class Player extends Actor implements MouseListener{
 	private double legTheta;
 	public char color;
 	public boolean isAttacking;
+	public int footstepCount;
 	public Player() {
 		super(0,0);
 		setImage("res/player/PlayerTD.png");
@@ -75,6 +76,7 @@ public class Player extends Actor implements MouseListener{
 		speed=4;
 		color = 'R';
 		isAttacking=false;
+		footstepCount=0;
 	}
 	@Override
 	public void update() {
@@ -87,13 +89,21 @@ public class Player extends Actor implements MouseListener{
 		else if(InputListener.isPressed('3')){
 			color='B';
 		}
-		//AffineTransform tx = new AffineTransform();
-		//tx.rotate(theta,this.getCenterX(), this.getCenterY());
-		//hitBox = tx.createTransformedShape(new Rectangle2D.Double(x,y,98,128));
 		canMoveDown=true;
 		canMoveUp=true;
 		canMoveRight=true;
 		canMoveLeft=true;
+		if(footstepCount>=35){
+			try {
+				Camera.playSound("res/sound/Player/playerfootstep"+(int)(5*Math.random())+".wav");
+			} catch (UnsupportedAudioFileException | IOException
+					| LineUnavailableException e) {
+				e.printStackTrace();
+			}
+			footstepCount=0;
+		}
+		if(InputListener.directionKeyPressed())
+			footstepCount++;
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -158,6 +168,7 @@ public class Player extends Actor implements MouseListener{
 		//TODO make him not be able to rotate in impossible directions;
 			//Flip body if facing the opposite way, and make him walk backwards?
 			//clamp the rotation?
+		//TODO Make it like Spiral Knights
 	}
 	private void animate(){
 		animationCount+=animationSpeed;

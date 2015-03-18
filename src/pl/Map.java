@@ -151,7 +151,6 @@ public class Map implements MouseListener  {
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
 		}
-		
 		return map;
 	}
 	private void shiftEntities(){

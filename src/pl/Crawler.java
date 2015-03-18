@@ -12,11 +12,17 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Crawler extends Enemy {
 		float animationCount;
 		float animationSpeed;
-		//Line2D.Double topLine,botLine,leftLine,rightLine;
+		Line2D.Double topLine,botLine,leftLine,rightLine;
+		double xVel;
+		double yVel;
+		boolean canAttack;
+		float attackTimer;
 	public Crawler(float x, float y, int r, int g, int b ){
 		super(x,y);
 		this.r=r;
@@ -37,7 +43,9 @@ public class Crawler extends Enemy {
 		theta=(float) (Math.random()*2*Math.PI);
 		animationCount=0;
 		animationSpeed=.35f;
-		speed = (float) (Player.speed*1);
+		speed = (float) (Player.speed*1.1);
+		canAttack=true;
+		attackTimer=0; //150 max
 	}
 	/*
 	public Crawler(float x, float y, char c) {
@@ -58,11 +66,46 @@ public class Crawler extends Enemy {
 		color = c;
 		speed = (float) (Player.speed*1.1);
 	}*/
+	public void directMove(Entity other){
+		double magnitude = distance(other);
+		xVel=(((other.x-x)/magnitude)*speed);
+		yVel=(((other.y-y)/magnitude)*speed);
+		for(int i=0;i<Global.enemies.size();i++){
+			if((hitBox.intersects(Global.enemies.get(i).hitBox))&&(Global.enemies.get(i)!=this)){
+				if(x>Global.enemies.get(i).x&&xVel<0)
+					xVel=0;
+				else if(x<Global.enemies.get(i).x&&xVel>0)
+					xVel=0;
+				if(y>Global.enemies.get(i).y&&yVel<0)
+					yVel=0;
+				else if(y<Global.enemies.get(i).y&&yVel>0)
+					yVel=0;
+			}
+		}
+		x+=xVel;
+		y+=yVel;
+	}
 	@Override
 	public void update() {
-		//TODO Move crawler movement to here from paint method.
+		if(!canAttack){
+			attackTimer++;
+			if(attackTimer>=75){
+				attackTimer=0;
+				canAttack=true;
+			}
+		}
 		if(distance(Global.player)<=100){//Attacking Player
-			//Dont move
+			if(canAttack){
+				Global.player.hp--;
+				try {
+					Camera.playSound("res/sound/Mob/MobAttack.wav");
+					Camera.playSound("res/sound/Player/playerhurt"+(int)(3*Math.random())+".wav");
+				} catch (UnsupportedAudioFileException | IOException
+						| LineUnavailableException e) {
+					e.printStackTrace();
+				}
+				canAttack=false;
+			}
 		}
 		else if(distance(Global.player)<=200)//Following Player
 			directMove(Global.player); //run to player
@@ -73,9 +116,8 @@ public class Crawler extends Enemy {
 	}
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
 		Global.camera.setCurrentEffect(new Color(0,0,0,0));
-		if(distance(Global.player)<=150){//Attacking Player
+		if(distance(Global.player)<=100){//Attacking Player
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
-			Global.player.hp--;
 			if(InputListener.directionKeyPressed())
 				animate();
 			else

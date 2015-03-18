@@ -11,6 +11,7 @@ public abstract class Enemy extends Actor {
 	String color;
 	BufferedImage[] animation;
 	int r, g, b;
+
 	public Enemy(float x, float y) {
 		super(x, y);
 		dead = false;
@@ -24,6 +25,8 @@ public abstract class Enemy extends Actor {
 		for(int i = 0; i < Global.projectiles.size(); i++) {
 			if(!(Global.projectiles.get(i).outOfBounds())) {
 				if(isColliding(Global.projectiles.get(i))) {
+					if(Global.projectiles.get(i).remove)
+						return;
 					Global.projectiles.get(i).remove=true;
 					if(Global.projectiles.get(i).color=='R'){
 						r=0;

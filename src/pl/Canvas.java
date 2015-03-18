@@ -28,6 +28,7 @@ public class Canvas extends JPanel {
 		Global.frame.setVisible(true);
 		Global.canvas = new Canvas();
 		Global.frame.add(Global.canvas);
+		Global.frame.setResizable(false);
 		startTime = System.currentTimeMillis();
 		init();
 		System.out.println("[INFO] Pixill Finished Loading\n");
@@ -58,7 +59,7 @@ public class Canvas extends JPanel {
 		Global.frame.addMouseListener(map);
 	}
 	public static void update(){
-		
+		//System.out.println(Global.enemies.size()+Global.spawners.size()+Global.projectiles.size());
 		Global.camera.update();
 		//camera.setCurrentEffect(new Color(255,0,0,60));2
 		if(Global.level>0)
