@@ -71,6 +71,10 @@ public class Projectile extends Entity{
 		x+=xVel;
 		y+=yVel;
 		updateHitBox();
+		for(int i=0;i<Global.walls.size();i++){
+			if (hitBox.intersects(Global.walls.get(i).hitBox))
+				remove=true;
+		}
 	}
 	public void paint(Graphics g) {
 		g.drawImage(img,(int)x,(int)y, null);

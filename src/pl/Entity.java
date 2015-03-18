@@ -29,7 +29,7 @@ public abstract class Entity {
 	public void setImage(BufferedImage img){
 		this.img = img;
 	}
-	public float distance(float x1, float y1, float x2, float y2){	//distance formula
+	public static float distance(float x1, float y1, float x2, float y2){	//distance formula
 		return (float)Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
 	}
 	public float distance(Entity e){	//distance between this entity and the specified one

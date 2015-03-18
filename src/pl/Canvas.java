@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -61,7 +63,6 @@ public class Canvas extends JPanel {
 	public static void update(){
 		//System.out.println(Global.enemies.size()+Global.spawners.size()+Global.projectiles.size());
 		Global.camera.update();
-		//camera.setCurrentEffect(new Color(255,0,0,60));2
 		if(Global.level>0)
 			Global.player.update();
 		for(int i=0;i < Global.walls.size();i++) {
@@ -82,8 +83,15 @@ public class Canvas extends JPanel {
 				Global.spawners.get(i).update();
 		}
 		for(int i=0;i<Global.enemies.size();i++){
-			if(Global.enemies.get(i).dead)
+			if(Global.enemies.get(i).dead){
 				Global.enemies.remove(i);
+				try {
+					Camera.playSound("res/sound/Mob/MobDeath.wav");
+				} catch (UnsupportedAudioFileException | IOException
+						| LineUnavailableException e) {
+					e.printStackTrace();
+				}
+			}
 			else
 				Global.enemies.get(i).update();
 		}

@@ -145,9 +145,9 @@ public class Map implements MouseListener  {
 				map[i][j]=""+data5[j+i*129];
 				if(map[i][j].equals("0"))
 					Global.walls.add(new Wall(j*128,i*128));
-				else if(map[i][j].equals("1")&&Math.random()<.02)
+				else if(map[i][j].equals("1")&&Math.random()<.02&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
 					Global.enemies.add(new Crawler(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
-				else if(map[i][j].equals("1")&&Math.random()<.01)
+				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
 		}

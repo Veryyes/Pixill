@@ -47,25 +47,7 @@ public class Crawler extends Enemy {
 		canAttack=true;
 		attackTimer=0; //150 max
 	}
-	/*
-	public Crawler(float x, float y, char c) {
-		super(x, y);
-		setImage("res/enemies/"+c+"Mob/"+c+"MobTD.png");
-		animation = new BufferedImage[12];
-		for(int i=0;i<animation.length;i++){
-			try {
-				animation[i] = ImageIO.read(new File("res/enemies/"+c+"Mob/"+c+"MobWalking/"+c+"MobWalk"+i+".png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("[WARNING] Missing Image - res/enemies/"+c+"Mob/"+c+"MobWalking/"+c+"MobWalk"+i+".png");
-			}
-		}
-		theta=(float) (Math.random()*2*Math.PI);
-		animationCount=0;
-		animationSpeed=.35f;
-		color = c;
-		speed = (float) (Player.speed*1.1);
-	}*/
+
 	public void directMove(Entity other){
 		double magnitude = distance(other);
 		xVel=(((other.x-x)/magnitude)*speed);
@@ -97,6 +79,7 @@ public class Crawler extends Enemy {
 		if(distance(Global.player)<=100){//Attacking Player
 			if(canAttack){
 				Global.player.hp--;
+				Global.camera.setCurrentEffect(new Color(r,g,b,60));
 				try {
 					Camera.playSound("res/sound/Mob/MobAttack.wav");
 					Camera.playSound("res/sound/Player/playerhurt"+(int)(3*Math.random())+".wav");
@@ -115,14 +98,12 @@ public class Crawler extends Enemy {
 		updateProjectileCollisions();
 	}
 	public void paint(Graphics g) {//Oh god this needs some cleaning up
-		Global.camera.setCurrentEffect(new Color(0,0,0,0));
 		if(distance(Global.player)<=100){//Attacking Player
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTDA.png");
 			if(InputListener.directionKeyPressed())
 				animate();
 			else
 				animationCount=0;
-			//TODO make this flash w/ hp drop //Global.camera.setCurrentEffect(new Color(255,0,0,20));
 			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
 			if(Global.player.x<x)
 				theta+=Math.PI;

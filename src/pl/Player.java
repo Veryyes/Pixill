@@ -181,6 +181,7 @@ public class Player extends Actor implements MouseListener{
 			animationAttackCount=0;
 		}
 	}
+	
 	private void clampValue(float value, float max, float min){
 		if(value>max)
 			value=max;

@@ -30,10 +30,11 @@ public class Spawner extends Enemy {
 		hitBox = new Rectangle2D.Double(x,y,128,128);
 	}
 	
-	@Override
 	public void update() {
+		if(r+g+b==0)
+			dead=true;
 		timer +=1;
-		if((distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
+		if((Global.enemies.size()<20)&&(distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
 			Global.enemies.add(new Crawler(x,y,r,g,b));
 			timer = 0;
 		}
@@ -41,8 +42,6 @@ public class Spawner extends Enemy {
 		updateProjectileCollisions();
 	}
 	
-
-	@Override
 	public void paint (Graphics g) {
 		//changeColor();
 		animate+=animationSpeed;
@@ -50,13 +49,4 @@ public class Spawner extends Enemy {
 		g.drawImage(animation[(int)animate],(int)x,(int)y,null);
 
 	}
-	//int proj;
-	/*
-	public void changeColor() {
-		proj = isHit();
-		if(proj != -1) {
-			color = Global.projectiles.get(proj).color;
-			Global.projectiles.get(proj).remove = true;
-		}
-	}*/
 }
