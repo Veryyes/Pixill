@@ -104,6 +104,10 @@ public class Player extends Actor implements MouseListener{
 		}
 		if(InputListener.directionKeyPressed())
 			footstepCount++;
+		if(topLine.intersects(Global.portal.hitBox)||botLine.intersects(Global.portal.hitBox)||leftLine.intersects(Global.portal.hitBox)||rightLine.intersects(Global.portal.hitBox)){
+			Global.level++;
+			Canvas.map=new Map(Global.level);
+		}
 	}
 	@Override
 	public void paint(Graphics g) {
