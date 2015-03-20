@@ -71,6 +71,7 @@ public class Canvas extends JPanel {
 	}
 	public static void update(){
 		//System.out.println(Global.enemies.size()+Global.spawners.size()+Global.projectiles.size());
+		System.out.println("Walls: "+Global.walls.size()+"\nEnemies: "+Global.enemies.size()+"\nSpawners: "+Global.spawners.size());
 		Global.camera.update();
 		if(Global.level>0)
 			Global.player.update();

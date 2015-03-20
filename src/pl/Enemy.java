@@ -76,6 +76,7 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Blk";
+					//speed=(float)Global
 					break;
 				case 255:
 					color="B";
@@ -89,6 +90,7 @@ public abstract class Enemy extends Actor {
 					break;
 				case 255:
 					color="C";
+					speed=(float)(Player.speed*.66666);
 					break;
 				}
 				break;
@@ -103,6 +105,7 @@ public abstract class Enemy extends Actor {
 					break;
 				case 255:
 					color="M";
+					speed=(float)(Player.speed*.66666);
 					break;
 				}
 				break;
@@ -110,9 +113,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Y";
+					speed=(float)(Player.speed*.66666);
 					break;
 				case 255:
 					color="W";
+					speed=(float) (Player.speed*1.1);
 					break;
 				}
 				break;
