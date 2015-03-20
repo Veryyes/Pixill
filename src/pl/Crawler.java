@@ -79,6 +79,14 @@ public class Crawler extends Enemy {
 		if(distance(Global.player)<=100){//Attacking Player
 			if(canAttack){
 				Global.player.hp--;
+				if(Global.player.hp<0){
+					Global.player.hp=3;
+					Global.loading=true;
+					Global.level=-1;
+					Canvas.map=new Map(Global.level);
+					Global.loading=false;
+				}
+					
 				Global.camera.setCurrentEffect(new Color(r,g,b,60));
 				try {
 					Camera.playSound("res/sound/Mob/MobAttack.wav");

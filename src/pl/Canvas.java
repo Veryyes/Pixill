@@ -21,6 +21,8 @@ public class Canvas extends JPanel {
 	public static Map map;
 	public static BufferedImage cursorImage;
 	public static BufferedImage loadScreen;
+	public static BufferedImage[] healthBar;
+	public static BufferedImage[] laserColor;
 	public static long startTime;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		System.out.println("[INFO] Pixill is Launching");
@@ -55,10 +57,17 @@ public class Canvas extends JPanel {
 		loadScreen = ImageIO.read(new File("res/gui/loading.png"));
 		cursorImage = ImageIO.read(new File("res/Crosshair1.png"));
 		Global.frame.getContentPane().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(cursorImage,new Point(0,0),"Crosshair"));
-		//Global.enemies.add(new Crawler(700,500,'B'));
-		//Global.spawners.add(new Spawner(700,500,'B'));
 		map = new Map(Global.level);
 		Global.frame.addMouseListener(map);
+		healthBar=new BufferedImage[4];
+		healthBar[0]=ImageIO.read(new File("res/gui/UI0.png"));
+		healthBar[1]=ImageIO.read(new File("res/gui/UI1.png"));
+		healthBar[2]=ImageIO.read(new File("res/gui/UI2.png"));
+		healthBar[3]=ImageIO.read(new File("res/gui/UI3.png"));
+		laserColor=new BufferedImage[3];
+		laserColor[0]=ImageIO.read(new File("res/gui/RedUI.png"));
+		laserColor[1]=ImageIO.read(new File("res/gui/GreenUI.png"));
+		laserColor[2]=ImageIO.read(new File("res/gui/BlueUI.png"));
 	}
 	public static void update(){
 		//System.out.println(Global.enemies.size()+Global.spawners.size()+Global.projectiles.size());
@@ -127,7 +136,21 @@ public class Canvas extends JPanel {
 			for(int i=0;i<Global.enemies.size();i++){
 				Global.enemies.get(i).paint(g);
 			}
-			Global.camera.paintEffect(g); //Do this last to apply an effect on top of the screen;
+			Global.camera.paintEffect(g);
+			if(Global.level>0){
+			g.drawImage(healthBar[Global.player.hp],0,0,null);
+				switch(Global.player.color){
+				case 'R':
+					g.drawImage(laserColor[0],0,0,null);
+					break;
+				case 'G':
+					g.drawImage(laserColor[1],0,0,null);
+					break;
+				case 'B':
+					g.drawImage(laserColor[2],0,0,null);
+					break;
+				}
+			}
 		}
 	}
 }

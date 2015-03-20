@@ -20,6 +20,7 @@ public class Camera {
 	double xVel;
 	double yVel;
 	int fade;
+	BufferedImage[] healthBar;
 	public Camera() {
 		currentEffect=new Color(0,0,0,0);
 		xVel=0;
@@ -58,19 +59,20 @@ public class Camera {
 		else if(InputListener.isPressed('D')&&Player.canMoveRight){
 			xVel=-Player.speed;
 		}
-		
 		for(int i=0;i<Global.walls.size();i++){
-			if(new Line2D.Double(Player.topLine.x1-xVel,Player.topLine.y1-yVel,Player.topLine.x2+-xVel,Player.topLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(yVel>0)){
-				yVel=0;
-			}
-			if(new Line2D.Double(Player.botLine.x1-xVel,Player.botLine.y1-yVel,Player.botLine.x2+-xVel,Player.botLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(yVel<0)){
-				yVel=0;
-			}
-			if(new Line2D.Double(Player.leftLine.x1-xVel,Player.leftLine.y1-yVel,Player.leftLine.x2-xVel,Player.leftLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(xVel>0)){
-				xVel=0;
-			}
-			if(new Line2D.Double(Player.rightLine.x1-xVel,Player.rightLine.y1-yVel,Player.rightLine.x2+-xVel,Player.rightLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(xVel<0)){
-				xVel=0;
+			if(!Global.walls.get(i).outOfBounds()){
+				if(new Line2D.Double(Player.topLine.x1-xVel,Player.topLine.y1-yVel,Player.topLine.x2+-xVel,Player.topLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(yVel>0)){
+					yVel=0;
+				}
+				if(new Line2D.Double(Player.botLine.x1-xVel,Player.botLine.y1-yVel,Player.botLine.x2+-xVel,Player.botLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(yVel<0)){
+					yVel=0;
+				}
+				if(new Line2D.Double(Player.leftLine.x1-xVel,Player.leftLine.y1-yVel,Player.leftLine.x2-xVel,Player.leftLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(xVel>0)){
+					xVel=0;
+				}
+				if(new Line2D.Double(Player.rightLine.x1-xVel,Player.rightLine.y1-yVel,Player.rightLine.x2+-xVel,Player.rightLine.y2-yVel).intersects(Global.walls.get(i).hitBox)&&(xVel<0)){
+					xVel=0;
+				}
 			}
 		}
 		//Translating Things on the Screen

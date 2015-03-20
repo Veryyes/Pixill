@@ -77,6 +77,7 @@ public class Player extends Actor implements MouseListener{
 		color = 'R';
 		isAttacking=false;
 		footstepCount=0;
+		hp=3;
 	}
 	@Override
 	public void update() {
