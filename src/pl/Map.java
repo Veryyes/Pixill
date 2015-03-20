@@ -22,17 +22,29 @@ public class Map implements MouseListener  {
 	public static float y;
 	public String[][] data;
 	public static BufferedImage tile;
+	public static BufferedImage entrance;
+	public static BufferedImage exit;
 	public static BufferedImage[] menuBack;
 	private static float animationCounter;
 	public static BufferedImage title;
 	public Map(int level){
 		x=0;
 		y=0;
-		data = new String[128][128];
+		data = new String[64][64];
 		try {
 			tile = ImageIO.read(new File("res/maps/Tile.png"));
 		} catch (IOException e1) {
 			System.out.println("[SEVERE] Could not find file res/maps/Tile.png");
+		}
+		try {
+			entrance = ImageIO.read(new File("res/maps/Entrance.png"));
+		} catch (IOException e2) {
+			System.out.println("[SEVERE] Could not find file res/maps/Entrance.png");
+		}
+		try {
+			exit = ImageIO.read(new File("res/maps/Exit.png"));
+		} catch (IOException e2) {
+			System.out.println("[SEVERE] Could not find file res/maps/Exit.png");
 		}
 		System.out.println("[INFO] Loading Map - Level: "+Global.level);
 		clearEntities();
@@ -60,13 +72,15 @@ public class Map implements MouseListener  {
 		case 1:
 			try {
 				data = mapLoader("res/maps/Level_1.txt");
-				y=-40*128;
-				x=-21*128;
+				y=-17*128;
+				x=-2*128;
 				shiftEntities();
 
 
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_1.txt");
+				//e.printStackTrace();
+				//System.exit(1);
 			}
 			break;
 		case 2:
@@ -89,7 +103,19 @@ public class Map implements MouseListener  {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");
 			}
 			break;
+		
+		case 4:
+			try {
+				data = mapLoader("res/maps/Level_4.txt");
+				//y=-40*128;
+				//x=-21*128;
+				shiftEntities();
+			} catch (Exception e) {
+				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");
+			}
+			break;
 		}
+		//System.exit(1);
 		System.out.println("[INFO] Done Loading Map - Level:" +Global.level);
 	}
 	public void update(){
@@ -105,6 +131,12 @@ public class Map implements MouseListener  {
 						if(data[i][j].equals("1")){
 							g.drawImage(tile,(int)(j*128+x),(int)(i*128+y),null);
 						}
+						//else if(data[i][j].equals("3")){//entrance to next level;
+						//	g.drawImage(entrance,(int)(j*128+x),(int)(i*128+y),null);
+						//}
+						//else if(data[i][j].equals("4")){
+						//	g.drawImage(exit,(int)(j*128+x),(int)(i*128+y),null);
+						//}
 					}
 				}
 			}
@@ -143,13 +175,21 @@ public class Map implements MouseListener  {
 		for(int i = 0;i<map.length;i++){
 			for(int j=0;j<map[0].length;j++){
 				map[i][j]=""+data5[j+i*129];
-				if(map[i][j].equals("0"))
+				System.out.print(map[i][j]);
+				if(map[i][j].equals("2"))
 					Global.walls.add(new Wall(j*128,i*128));
+				else if(map[i][j].equals("3"))
+					Global.portal=(new Portal(j*128,i*128));
+				else if(map[i][j].equals("4")){
+					//x=j*128;
+					//y=i*128;
+				}
 				else if(map[i][j].equals("1")&&Math.random()<.02&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
 					Global.enemies.add(new Crawler(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
+			System.out.println("");
 		}
 		return map;
 	}
