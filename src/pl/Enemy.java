@@ -30,6 +30,10 @@ public abstract class Enemy extends Actor {
 					if(Global.projectiles.get(i).remove)
 						return;
 					Global.projectiles.get(i).remove=true;
+					if(this instanceof Crawler){
+						this.x+=(float) Global.projectiles.get(i).xVel*5;
+						this.y+=(float) Global.projectiles.get(i).yVel*5;
+					}
 					if(Global.projectiles.get(i).color=='R'){
 						r=0;
 						updateColor();
