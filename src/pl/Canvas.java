@@ -116,8 +116,18 @@ public class Canvas extends JPanel {
 			}
 		}
 		for(int i=0;i < Global.spawners.size();i++) {
-			if(Global.spawners.get(i).dead)
+			if(Global.spawners.get(i).dead){
 				Global.spawners.remove(i);
+				Global.player.hp+=2;
+				if(Global.player.hp>5) 
+					Global.player.hp=5;
+				try {
+					Camera.playSound("res/sound/Spawner/SpawnerDeath"+(int)(Math.random()*2)+".wav");
+				} catch (UnsupportedAudioFileException | IOException
+						| LineUnavailableException e) {
+					e.printStackTrace();
+				}
+			}
 			else if(Global.spawners.get(i).remove){
 				Global.spawners.remove(i);
 			}
@@ -127,6 +137,9 @@ public class Canvas extends JPanel {
 		for(int i=0;i<Global.enemies.size();i++){
 			if(Global.enemies.get(i).dead){
 				Global.enemies.remove(i);
+				Global.player.hp++;
+				if(Global.player.hp>5) 
+					Global.player.hp=5;
 				try {
 					Camera.playSound("res/sound/Mob/MobDeath.wav");
 				} catch (UnsupportedAudioFileException | IOException

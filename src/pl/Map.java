@@ -85,22 +85,18 @@ public class Map implements MouseListener  {
 		case 1:
 			try {
 				data = mapLoader("res/maps/Level_1.txt");
-				//y=-17*128;
-				//x=-2*128;
+
 				shiftEntities();
 
 
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_1.txt");
-				//e.printStackTrace();
-				//System.exit(1);
 			}
 			break;
 		case 2:
 			try {
 				data = mapLoader("res/maps/Level_2.txt");
-				//y=-40*128;
-				//x=-21*128;
+	
 				shiftEntities();
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_2.txt");
@@ -109,8 +105,7 @@ public class Map implements MouseListener  {
 		case 3:
 			try {
 				data = mapLoader("res/maps/Level_3.txt");
-				//y=-40*128;
-				//x=-21*128;
+			
 				shiftEntities();
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");
@@ -120,8 +115,7 @@ public class Map implements MouseListener  {
 		case 4:
 			try {
 				data = mapLoader("res/maps/Level_4.txt");
-				//y=-40*128;
-				//x=-21*128;
+
 				shiftEntities();
 			} catch (Exception e) {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");

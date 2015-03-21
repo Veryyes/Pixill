@@ -81,7 +81,6 @@ public class Player extends Actor implements MouseListener{
 	}
 	@Override
 	public void update() {
-		//hp=5;
 		if(InputListener.isPressed('1')){//28,29,30
 			color='R';
 		}

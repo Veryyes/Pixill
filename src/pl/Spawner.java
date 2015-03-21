@@ -34,8 +34,6 @@ public class Spawner extends Enemy {
 	}
 	
 	public void update() {
-		if(r+g+b==0)
-			dead=true;
 		timer +=1;
 		if(child.remove||child.dead){
 			if((Global.enemies.size()<20)&&(distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {

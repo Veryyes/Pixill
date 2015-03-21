@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Enemy extends Actor {
 	boolean dead;
 	boolean remove;
+	boolean aggro;
 	String color;
 	BufferedImage[] animation;
 	int r, g, b;
@@ -33,16 +36,23 @@ public abstract class Enemy extends Actor {
 					if(this instanceof Crawler){
 						this.x+=(float) Global.projectiles.get(i).xVel*5;
 						this.y+=(float) Global.projectiles.get(i).yVel*5;
+						aggro=true;
 					}
 					if(Global.projectiles.get(i).color=='R'){
+						if(r>0&&b+g!=0)
+							playPhaseShiftSound();
 						r=0;
 						updateColor();
 						updateImages();
 					}else if(Global.projectiles.get(i).color=='G'){
+						if(g>0&&r+b!=0)
+							playPhaseShiftSound();
 						g=0;
 						updateColor();
 						updateImages();
 					}else {// Blue
+						if(b>0&&r+g!=0)
+							playPhaseShiftSound();
 						b=0;
 						updateColor();
 						updateImages();
@@ -87,6 +97,7 @@ public abstract class Enemy extends Actor {
 				case 255:
 					color="B";
 					speed=(float)(Player.speed*(1.1));
+					//playPhaseShiftSound();
 					break;
 				}
 				break;
@@ -95,10 +106,12 @@ public abstract class Enemy extends Actor {
 				case 0:
 					color="G";
 					speed=(float)(Player.speed*(1.1));
+					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="C";
 					speed=(float)(Player.speed*(2.2/3));
+					//playPhaseShiftSound();
 					break;
 				}
 				break;
@@ -111,10 +124,12 @@ public abstract class Enemy extends Actor {
 				case 0:
 					color="R";
 					speed=(float)(Player.speed*(1.1));
+					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="M";
 					speed=(float)(Player.speed*(2.2/3));
+					//playPhaseShiftSound();
 					break;
 				}
 				break;
@@ -123,10 +138,12 @@ public abstract class Enemy extends Actor {
 				case 0:
 					color="Y";
 					speed=(float)(Player.speed*(2.2/3));
+					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="W";
 					speed=(float) (Player.speed*(1.1/3));
+					//playPhaseShiftSound();
 					break;
 				}
 				break;
@@ -135,4 +152,12 @@ public abstract class Enemy extends Actor {
 		}
 	}
 	
+	private void playPhaseShiftSound(){
+		try {
+			Camera.playSound("res/sound/Mob/PhaseShift.wav");
+		} catch (UnsupportedAudioFileException | IOException
+				| LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
 }

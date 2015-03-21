@@ -13,7 +13,7 @@ public class Global {
 	public static boolean gameOn=true;
 	public static int frameWidth = 1024;
 	public static int frameHeight = 640;
-	public static int level = 1;	//0 = title screen;
+	public static int level = 0;	//0 = title screen;
 	public static int pressedKeys=0;
 	public static Camera camera;
 	public static Player player;
