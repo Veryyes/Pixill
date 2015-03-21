@@ -24,6 +24,9 @@ public class Map implements MouseListener  {
 	public static BufferedImage tile;
 	public static BufferedImage entrance;
 	public static BufferedImage exit;
+	public static BufferedImage gameOver;
+	public static BufferedImage[] win;
+	private static int gameWinCount=0;
 	public static BufferedImage[] menuBack;
 	private static float animationCounter;
 	public static BufferedImage title;
@@ -49,6 +52,16 @@ public class Map implements MouseListener  {
 		System.out.println("[INFO] Loading Map - Level: "+Global.level);
 		clearEntities();
 		switch(level){
+		case -1:
+			try {
+				gameOver = ImageIO.read(new File("res/gui/GameOver.png"));
+			} catch (IOException e2) {
+				System.out.println("[SEVERE] Could not find file res/gui/GameOver.png");
+			}
+			for(int i=0;i<data.length;i++){
+				for(int j=0;j<data[0].length;j++)
+					data[i][j]="";
+			}
 		case 0://This should be the menu screen;
 			animationCounter=0;
 			menuBack = new BufferedImage[5];
@@ -114,6 +127,24 @@ public class Map implements MouseListener  {
 				System.out.println("[SEVERE] Could not find file res/maps/Level_3.txt");
 			}
 			break;
+		case 5:
+			animationCounter=0;
+			win = new BufferedImage[4];
+			for(int i=0;i<win.length;i++){
+				try {
+					win[i] = ImageIO.read(new File("res/gui/GameComplete"+i+".png"));
+				} catch (IOException e) {
+					System.out.println("[SEVERE] Could not find file res/gui/GameComplete"+i+".png");
+				}
+			}
+			for(int i=0;i<data.length;i++){
+				for(int j=0;j<data[0].length;j++)
+					data[i][j]="";
+			}
+			x=-1000000;
+			y=-1000000;
+			shiftEntities();
+			break;
 		}
 		//System.exit(1);
 		System.out.println("[INFO] Done Loading Map - Level:" +Global.level);
@@ -122,7 +153,7 @@ public class Map implements MouseListener  {
 		
 	}
 	public void paint(Graphics g){
-		if(Global.level>0){
+		if(Global.level>0&&Global.level!=5){
 			g.setColor(Color.BLACK);
 			g.fillRect(0,0,1024,640);
 			for(int i=0;i<data.length;i++){
@@ -140,11 +171,26 @@ public class Map implements MouseListener  {
 					}
 				}
 			}
-		}else{
+		}else if(Global.level==0){
 			g.drawImage(menuBack[(int)animationCounter],0,0,null);
 			g.drawImage(title, 0, 0, null);
 			animationCounter+=.075;
 			animationCounter=animationCounter%menuBack.length;
+		}
+		else if(Global.level==-1){
+			g.drawImage(gameOver,0,0,null);
+		}
+		else if(Global.level==5){
+			g.drawImage(win[(int)animationCounter],0,0,null);
+			animationCounter+=.1;
+			gameWinCount+=1;
+			animationCounter=animationCounter%win.length;
+			if(gameWinCount>=180){
+				Global.loading=true;
+				Global.level=0;
+				Canvas.map=new Map(Global.level);
+				Global.loading=false;
+			}
 		}
 	}
 	public String[][] mapLoader(String filename) throws IOException{//Going to make this return a SparseMatrix when we go to states
@@ -175,7 +221,6 @@ public class Map implements MouseListener  {
 		for(int i = 0;i<map.length;i++){
 			for(int j=0;j<map[0].length;j++){
 				map[i][j]=""+data5[j+i*65];
-				System.out.print(map[i][j]);
 				if(map[i][j].equals("2"))
 					Global.walls.add(new Wall(j*128,i*128));
 				else if(map[i][j].equals("3"))
@@ -189,7 +234,6 @@ public class Map implements MouseListener  {
 				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.frameWidth/2,Global.frameHeight/2)>640)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
-			System.out.println("");
 		}
 		return map;
 	}

@@ -79,8 +79,8 @@ public class Crawler extends Enemy {
 		if(distance(Global.player)<=100){//Attacking Player
 			if(canAttack){
 				Global.player.hp--;
-				if(Global.player.hp<0){
-					Global.player.hp=3;
+				if(Global.player.hp<1){
+					Global.player.hp=5;
 					Global.loading=true;
 					Global.level=-1;
 					Canvas.map=new Map(Global.level);

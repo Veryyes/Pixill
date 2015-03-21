@@ -77,11 +77,11 @@ public class Player extends Actor implements MouseListener{
 		color = 'R';
 		isAttacking=false;
 		footstepCount=0;
-		hp=3;
+		hp=5;
 	}
 	@Override
 	public void update() {
-		hp=3;
+		//hp=5;
 		if(InputListener.isPressed('1')){//28,29,30
 			color='R';
 		}
@@ -205,7 +205,7 @@ public class Player extends Actor implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 	}
 	public void mousePressed(MouseEvent e) {
-		if(Global.level>0&&!isAttacking){
+		if(Global.level>0&&!isAttacking&&Global.level!=5){
 			isAttacking=true;
 			Point mouse = Global.frame.getMousePosition();
 			Projectile bullet = new Projectile((this.getCenterX()),(this.getCenterY()),mouse.x,mouse.y,15,"res/player/laser/laser"+color+".png");
