@@ -118,6 +118,9 @@ public class Canvas extends JPanel {
 		for(int i=0;i < Global.spawners.size();i++) {
 			if(Global.spawners.get(i).dead)
 				Global.spawners.remove(i);
+			else if(Global.spawners.get(i).remove){
+				Global.spawners.remove(i);
+			}
 			else
 				Global.spawners.get(i).update();
 		}
@@ -130,6 +133,9 @@ public class Canvas extends JPanel {
 						| LineUnavailableException e) {
 					e.printStackTrace();
 				}
+			}
+			else if(Global.enemies.get(i).remove){
+				Global.enemies.remove(i);
 			}
 			else
 				Global.enemies.get(i).update();

@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 public abstract class Enemy extends Actor {
 	boolean dead;
+	boolean remove;
 	String color;
 	BufferedImage[] animation;
 	int r, g, b;
@@ -15,6 +16,7 @@ public abstract class Enemy extends Actor {
 	public Enemy(float x, float y) {
 		super(x, y);
 		dead = false;
+		remove=false;
 	}
 	public void directMove(Entity other){
 		double magnitude = distance(other);
@@ -76,10 +78,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Blk";
-					//speed=(float)Global
+					speed=(float)(Player.speed*(1.1));
 					break;
 				case 255:
 					color="B";
+					speed=(float)(Player.speed*(1.1));
 					break;
 				}
 				break;
@@ -87,10 +90,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="G";
+					speed=(float)(Player.speed*(1.1));
 					break;
 				case 255:
 					color="C";
-					speed=(float)(Player.speed*.66666);
+					speed=(float)(Player.speed*(2.2/3));
 					break;
 				}
 				break;
@@ -102,10 +106,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="R";
+					speed=(float)(Player.speed*(1.1));
 					break;
 				case 255:
 					color="M";
-					speed=(float)(Player.speed*.66666);
+					speed=(float)(Player.speed*(2.2/3));
 					break;
 				}
 				break;
@@ -113,11 +118,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Y";
-					speed=(float)(Player.speed*.66666);
+					speed=(float)(Player.speed*(2.2/3));
 					break;
 				case 255:
 					color="W";
-					speed=(float) (Player.speed*1.1);
+					speed=(float) (Player.speed*(1.1/3));
 					break;
 				}
 				break;

@@ -226,14 +226,22 @@ public class Map implements MouseListener  {
 				else if(map[i][j].equals("3"))
 					Global.portal=(new Portal(j*128,i*128));
 				else if(map[i][j].equals("4")){
-					x=-(j*128)+(4*128);
-					y=-i*128+(2*128);
+					x=-((j*128)-(4*128));
+					y=-(i*128-(2*128));
 				}
-				else if(map[i][j].equals("1")&&Math.random()<.02&&Entity.distance(j*128, i*128, Global.frameWidth/2,Global.frameHeight/2)>640)
+				else if(map[i][j].equals("1")&&Math.random()<.02)
 					Global.enemies.add(new Crawler(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
-				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.frameWidth/2,Global.frameHeight/2)>640)
+				else if(map[i][j].equals("1")&&Math.random()<.01)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
+		}
+		for(int i=0;i<Global.enemies.size();i++){
+			if(Entity.distance(Global.enemies.get(i).x+x,Global.enemies.get(i).y+y,Global.player.x,Global.player.y)<450)
+				Global.enemies.get(i).remove=true;
+		}
+		for(int i=0;i<Global.spawners.size();i++){
+			if(Entity.distance(Global.spawners.get(i).x+x,Global.spawners.get(i).y+y,Global.player.x,Global.player.y)<450)
+				Global.spawners.get(i).remove=true;
 		}
 		return map;
 	}
