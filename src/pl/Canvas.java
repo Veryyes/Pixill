@@ -118,7 +118,7 @@ public class Canvas extends JPanel {
 		for(int i=0;i < Global.spawners.size();i++) {
 			if(Global.spawners.get(i).dead){
 				Global.spawners.remove(i);
-				Global.player.hp+=2;
+				Global.player.hp++;
 				if(Global.player.hp>5) 
 					Global.player.hp=5;
 				try {
@@ -137,9 +137,9 @@ public class Canvas extends JPanel {
 		for(int i=0;i<Global.enemies.size();i++){
 			if(Global.enemies.get(i).dead){
 				Global.enemies.remove(i);
-				Global.player.hp++;
-				if(Global.player.hp>5) 
-					Global.player.hp=5;
+				//Global.player.hp++;
+				//if(Global.player.hp>5) 
+				//	Global.player.hp=5;
 				try {
 					Camera.playSound("res/sound/Mob/MobDeath.wav");
 				} catch (UnsupportedAudioFileException | IOException

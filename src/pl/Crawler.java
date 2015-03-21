@@ -104,7 +104,7 @@ public class Crawler extends Enemy {
 			aggro=true;
 			directMove(Global.player); //run to player
 		}
-		else if(distance(Global.player)<=300){//Entered Aggro Range
+		else if(distance(Global.player)<=440){//Entered Aggro Range
 			aggro=true;
 			directMove(Global.player); //run to player
 		}
@@ -150,7 +150,7 @@ public class Crawler extends Enemy {
 			g.drawImage(bodyRotationOp.filter(img, null),(int)x-img.getWidth()/2+animation[(int)animationCount].getWidth()/2,(int)y-img.getHeight()/2+animation[(int)animationCount].getHeight()/2,null);
 			animate();
 		}
-		else if(distance(Global.player)<=300){//Entered Aggro Range
+		else if(distance(Global.player)<=440){//Entered Aggro Range
 			setImage("res/enemies/"+color+"Mob/"+color+"MobTD.png");
 			theta = (float) Math.atan((Global.player.y-y)/(Global.player.x-x));
 			if(Global.player.x<x)

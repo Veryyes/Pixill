@@ -34,8 +34,8 @@ public abstract class Enemy extends Actor {
 						return;
 					Global.projectiles.get(i).remove=true;
 					if(this instanceof Crawler){
-						this.x+=(float) Global.projectiles.get(i).xVel*5;
-						this.y+=(float) Global.projectiles.get(i).yVel*5;
+						this.x+=(float) Global.projectiles.get(i).xVel*2.5;
+						this.y+=(float) Global.projectiles.get(i).yVel*2.5;
 						aggro=true;
 					}
 					if(Global.projectiles.get(i).color=='R'){
@@ -92,11 +92,11 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Blk";
-					speed=(float)(Player.speed*(1.1));
+					speed=(float)(Player.speed*(1.1)*1.2);
 					break;
 				case 255:
 					color="B";
-					speed=(float)(Player.speed*(1.1));
+					speed=(float)(Player.speed*(1.1)*1.2);
 					//playPhaseShiftSound();
 					break;
 				}
@@ -105,12 +105,12 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="G";
-					speed=(float)(Player.speed*(1.1));
+					speed=(float)(Player.speed*(1.1)*1.2);
 					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="C";
-					speed=(float)(Player.speed*(2.2/3));
+					speed=(float)(Player.speed*(2.2/3)*1.2);
 					//playPhaseShiftSound();
 					break;
 				}
@@ -123,12 +123,12 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="R";
-					speed=(float)(Player.speed*(1.1));
+					speed=(float)(Player.speed*(1.1)*1.2);
 					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="M";
-					speed=(float)(Player.speed*(2.2/3));
+					speed=(float)(Player.speed*(2.2/3)*1.2);
 					//playPhaseShiftSound();
 					break;
 				}
@@ -137,12 +137,12 @@ public abstract class Enemy extends Actor {
 				switch(b){
 				case 0:
 					color="Y";
-					speed=(float)(Player.speed*(2.2/3));
+					speed=(float)(Player.speed*(2.2/3)*1.2);
 					//playPhaseShiftSound();
 					break;
 				case 255:
 					color="W";
-					speed=(float) (Player.speed*(1.1/3));
+					speed=(float) (Player.speed*(1.1/3)*1.2);
 					//playPhaseShiftSound();
 					break;
 				}

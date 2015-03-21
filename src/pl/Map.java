@@ -223,9 +223,9 @@ public class Map implements MouseListener  {
 					x=-((j*128)-(4*128));
 					y=-(i*128-(2*128));
 				}
-				else if(map[i][j].equals("1")&&Math.random()<.02)
+				else if(map[i][j].equals("1")&&Math.random()<.04)
 					Global.enemies.add(new Crawler(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
-				else if(map[i][j].equals("1")&&Math.random()<.01)
+				else if(map[i][j].equals("1")&&Math.random()<.02)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
 		}
