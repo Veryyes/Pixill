@@ -33,26 +33,43 @@ public abstract class Enemy extends Actor {
 					if(Global.projectiles.get(i).remove)
 						return;
 					Global.projectiles.get(i).remove=true;
-					if(this instanceof Crawler){
-						this.x+=(float) Global.projectiles.get(i).xVel*2.5;
-						this.y+=(float) Global.projectiles.get(i).yVel*2.5;
-						aggro=true;
-					}
+					
 					if(Global.projectiles.get(i).color=='R'){
-						if(r>0&&b+g!=0)
-							playPhaseShiftSound();
+						if(r>0){
+							if(this instanceof Crawler){
+								this.x+=(float) Global.projectiles.get(i).xVel*2.5;
+								this.y+=(float) Global.projectiles.get(i).yVel*2.5;
+								aggro=true;
+							}
+							if(b+g!=0)
+								playPhaseShiftSound();
+						}
 						r=0;
 						updateColor();
 						updateImages();
 					}else if(Global.projectiles.get(i).color=='G'){
-						if(g>0&&r+b!=0)
-							playPhaseShiftSound();
+						if(g>0){
+							if(this instanceof Crawler){
+								this.x+=(float) Global.projectiles.get(i).xVel*2.5;
+								this.y+=(float) Global.projectiles.get(i).yVel*2.5;
+								aggro=true;
+							}
+							if(r+b!=0)
+								playPhaseShiftSound();
+						}
 						g=0;
 						updateColor();
 						updateImages();
 					}else {// Blue
-						if(b>0&&r+g!=0)
-							playPhaseShiftSound();
+						if(b>0){
+							if(this instanceof Crawler){
+								this.x+=(float) Global.projectiles.get(i).xVel*2.5;
+								this.y+=(float) Global.projectiles.get(i).yVel*2.5;
+								aggro=true;
+							}
+							if(r+g!=0)
+								playPhaseShiftSound();
+						}
 						b=0;
 						updateColor();
 						updateImages();
