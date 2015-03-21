@@ -50,6 +50,7 @@ public class Map implements MouseListener  {
 			System.out.println("[SEVERE] Could not find file res/maps/Exit.png");
 		}
 		System.out.println("[INFO] Loading Map - Level: "+Global.level);
+		Global.player.hp=5;
 		clearEntities();
 		switch(level){
 		case -1:
@@ -63,6 +64,7 @@ public class Map implements MouseListener  {
 					data[i][j]="";
 			}
 		case 0://This should be the menu screen;
+			
 			animationCounter=0;
 			menuBack = new BufferedImage[5];
 			for(int i=0;i<menuBack.length;i++){
