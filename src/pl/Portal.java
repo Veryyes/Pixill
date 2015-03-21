@@ -13,7 +13,7 @@ public class Portal extends Entity {
 
 	@Override
 	public void update() {
-		
+		hitBox = new Rectangle2D.Double(x,y,128,128);
 	}
 
 	@Override

@@ -72,8 +72,8 @@ public class Map implements MouseListener  {
 		case 1:
 			try {
 				data = mapLoader("res/maps/Level_1.txt");
-				y=-17*128;
-				x=-2*128;
+				//y=-17*128;
+				//x=-2*128;
 				shiftEntities();
 
 
@@ -131,12 +131,12 @@ public class Map implements MouseListener  {
 						if(data[i][j].equals("1")){
 							g.drawImage(tile,(int)(j*128+x),(int)(i*128+y),null);
 						}
-						//else if(data[i][j].equals("3")){//entrance to next level;
-						//	g.drawImage(entrance,(int)(j*128+x),(int)(i*128+y),null);
-						//}
-						//else if(data[i][j].equals("4")){
-						//	g.drawImage(exit,(int)(j*128+x),(int)(i*128+y),null);
-						//}
+						else if(data[i][j].equals("3")){//entrance to next level;
+							g.drawImage(entrance,(int)(j*128+x),(int)(i*128+y),null);
+						}
+						else if(data[i][j].equals("4")){
+							g.drawImage(exit,(int)(j*128+x),(int)(i*128+y),null);
+						}
 					}
 				}
 			}
@@ -171,22 +171,22 @@ public class Map implements MouseListener  {
 		}
 		//Shoving it in a 2D array && loading in entities
 		char[] data5=data4.toCharArray();
-		String[][] map = new String[128][128];
+		String[][] map = new String[64][64];
 		for(int i = 0;i<map.length;i++){
 			for(int j=0;j<map[0].length;j++){
-				map[i][j]=""+data5[j+i*129];
+				map[i][j]=""+data5[j+i*65];
 				System.out.print(map[i][j]);
 				if(map[i][j].equals("2"))
 					Global.walls.add(new Wall(j*128,i*128));
 				else if(map[i][j].equals("3"))
 					Global.portal=(new Portal(j*128,i*128));
 				else if(map[i][j].equals("4")){
-					//x=j*128;
-					//y=i*128;
+					x=-(j*128)+(4*128);
+					y=-i*128+(2*128);
 				}
-				else if(map[i][j].equals("1")&&Math.random()<.02&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
+				else if(map[i][j].equals("1")&&Math.random()<.02&&Entity.distance(j*128, i*128, Global.frameWidth/2,Global.frameHeight/2)>640)
 					Global.enemies.add(new Crawler(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
-				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.player.x,Global.player.y)>350)
+				else if(map[i][j].equals("1")&&Math.random()<.01&&Entity.distance(j*128, i*128, Global.frameWidth/2,Global.frameHeight/2)>640)
 					Global.spawners.add(new Spawner(j*128,i*128,(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random())),(int)(255*Math.round(Math.random()))));
 			}
 			System.out.println("");
@@ -210,6 +210,9 @@ public class Map implements MouseListener  {
 			Global.spawners.get(i).y+=y;
 			Global.spawners.get(i).x+=x;
 		}
+		Global.portal.x+=x;
+		Global.portal.y+=y;
+		Global.portal.update();
 	}
 	private void clearEntities(){
 		Global.projectiles.clear();

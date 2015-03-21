@@ -94,6 +94,9 @@ public class Camera {
 			Global.spawners.get(i).y+=yVel;
 			Global.spawners.get(i).x+=xVel;
 		}
+		Global.portal.y+=yVel;
+		Global.portal.x+=xVel;
+		Global.portal.update();
 	}
 	public void setCurrentEffect(Color c){
 		currentEffect = c;

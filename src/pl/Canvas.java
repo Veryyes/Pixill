@@ -72,10 +72,16 @@ public class Canvas extends JPanel {
 	public static void update(){
 		//System.out.println(Global.enemies.size()+Global.spawners.size()+Global.projectiles.size());
 		//System.out.println("Walls: "+Global.walls.size()+"\nEnemies: "+Global.enemies.size()+"\nSpawners: "+Global.spawners.size());
-		System.out.println(map.x+", "+map.y);
+		//System.out.println(map.x+", "+map.y+": :"+Global.portal.x+","+Global.portal.y);
 		Global.camera.update();
 		if(Global.level>0)
 			Global.player.update();
+		if(Global.player.hitBox.intersects(Global.portal.hitBox)){
+			Global.loading=true;
+			Global.level++;
+			Canvas.map=new Map(Global.level);
+			Global.loading=false;
+		}
 		for(int i=0;i < Global.walls.size();i++) {
 			Global.walls.get(i).update();
 		}

@@ -81,6 +81,7 @@ public class Player extends Actor implements MouseListener{
 	}
 	@Override
 	public void update() {
+		hp=3;
 		if(InputListener.isPressed('1')){//28,29,30
 			color='R';
 		}
@@ -94,6 +95,10 @@ public class Player extends Actor implements MouseListener{
 		canMoveUp=true;
 		canMoveRight=true;
 		canMoveLeft=true;
+		if(InputListener.isPressed(' ')){
+			speed=20;
+		}
+		else speed=4;
 		if(footstepCount>=35){
 			try {
 				Camera.playSound("res/sound/Player/playerfootstep"+(int)(5*Math.random())+".wav");
