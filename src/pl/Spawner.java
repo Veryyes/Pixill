@@ -13,6 +13,7 @@ public class Spawner extends Enemy {
 	int timer;
 	float animate = 0;
 	float animationSpeed=1;
+	Crawler child;
 	public Spawner(float x, float y, int r, int g, int b){
 		super(x,y);
 		this.r=r;
@@ -28,15 +29,19 @@ public class Spawner extends Enemy {
 			}
 		}
 		hitBox = new Rectangle2D.Double(x,y,128,128);
+		child = new Crawler(0,0,255,255,255);
+		child.remove=true;
 	}
 	
 	public void update() {
 		if(r+g+b==0)
 			dead=true;
 		timer +=1;
-		if((Global.enemies.size()<20)&&(distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
-			Global.enemies.add(new Crawler(x,y,r,g,b));
-			timer = 0;
+		if(child.remove||child.dead){
+			if((Global.enemies.size()<20)&&(distance(Global.player) < 1200 && (timer/Global.FPS) >= 15) || ((timer/Global.FPS) >= 30)) {
+				Global.enemies.add(child = new Crawler(x,y,r,g,b));
+				timer = 0;
+			}
 		}
 		hitBox = new Rectangle2D.Double(x,y,128,128);
 		updateProjectileCollisions();
